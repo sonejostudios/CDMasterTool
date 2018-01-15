@@ -21,6 +21,7 @@ __Main Features:__
 * Direct link to Flacon to split WAV file according to CUE file and export (WAV, flac, AAC, Ogg, Opus, etc...)
 * Direct link to VLC: Play CD (with CD-TEXT) and play CUE file
 * Commandline launcher for Cdrdao, libcdio and more
+* Auto description for buttons and entries
 
   
 
@@ -46,6 +47,8 @@ __Requirements:__
 * VLC (https://www.videolan.org/vlc/)
 
 
+
+
 __Notes:__
 
 * CDMasterTool was one of my playground for learning Python, I'm sure the code is not the best, but it works!. If you have suggestions or you want to help, please contact me. Otherwise, have fun with it, I hope it wilol be helpful for you!
@@ -54,39 +57,50 @@ __Notes:__
 
 __Tips and Tricks:__
 
-* coming..
-
+* Export your Audio Master out of your DAW (i.e Ardour). Be sure you filled up the track titles and other metadata.
+* Red Book CD Export: At least WAV, 44.100kHz, 16bit, TOC and CUE file with track titles and performer
+* Open CDMasterTool and copy/paste the exported WAV file into the WAV-file entry of CDMasterTool
+* Cdrdao needs to have the same metadata in the CD title than in the tracks, otherwise, it will not burn. Be sure it is correct.
+* Replace the WAV-file path in the TOC-file to a relative path (or somewhere else) (needs rpl). The CUE file path is already relative.
+* If you change a metadata in the TOC file, you need to change it in the CUE file as well.
+* TOC files are used for burning (Disk-at-Once, via Cdrdao).
+* CUE files are used to split with Flacon and play with VLC player (needs Flacon and VLC).
+* Cdrdao and libcdio can do much more. Type "cdrdao" or "cd-info/cd-drive --help" and Run it. See also http://cdrdao.sourceforge.net/ and https://www.gnu.org/software/libcdio/
+ 
 
 
 
 __Buttons:__
 
+* cd-drive : Show info and features about the CD drive.
+* drive-info : Show drive speed, device, driver, info.
+* scanbus : Scan system for drive(s).
+* unlock : Unlock drive(s) if locked by mistake.
+* eject : Eject drive(s).
 
-* cd-drive
-* drive-info
-* scanbus
-* unlock
-* eject
+* cd-info : Scan CD and show drive info, CD info, track info, MCN, ISRC and CD-TEXT.
+* disc id : Scan CD and show tracks (number, start, length) and check CDDB (freedb.org).
+* disk-info : Scan CD and show CD info (medium only).
 
-* cd-info
-* disc id
-* disk-info
+* open toc : Open TOC-file.
+* save toc : Overwrite TOC-file. A backup (.toc.bak) will be triggered before saving.
+* replace path* : Create a command to replace WAV-file path in TOC-file with relative path. Manually replace OLD_PATH in the command with the old WAV file path present in the TOC file. Press Run to start replacing. A backup (.toc.bak) will be triggered before.
 
-* open toc
-* save toc
-* replace path*
+* open cue : Open CUE-file.
+* save cue : Overwrite CUE-file. A backup (.cue.bak) will be triggered before saving.
 
-* open cue
-* save cue
+* simulate* : Create command with options for CD Burning simulation (from TOC-file). Press Run to start.
+* burn* : Create command with options for CD burning (from TOC-file). Press Run to start.
 
-* simulate*
-* burn*
+* flacon split : Split and convert tracks with Flacon/CUE-file. (WAV, Flac, Mp3, Ogg, etc...)
+* vlc cue : Open CUE-file with VLC-Player.
+* vlc cd : Open CD with VLC-Player.
 
-* flacon split
-* vlc cue
-* vlc cd
+* ... : Open WAV file with the file chooser dialog. Copy/paste the WAV file into the WAV-file entry will also do the trick, but much faster. :)
+* Run : Run command.
 
 
+Buttons with * will just create the commands (and don't run them). Press Run to do that.
 
 
 

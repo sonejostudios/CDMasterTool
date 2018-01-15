@@ -305,7 +305,6 @@ def run_command(x):
     #os.system(command + " | tee stdout.txt")
     #os.system(command + " > stdout.txt" )
 
-
     if x == "term":
         os.system("xterm -e ' " + comtermout + " ' ")
     else:
@@ -372,8 +371,8 @@ def driveinfoinfo(event):
 def scanbusinfo(event):
     info_label.config(text="Scan system for drive(s).")
 
-def driversinfo(event):
-    info_label.config(text="Show available drivers.")
+#def driversinfo(event):
+#    info_label.config(text="Show available drivers.")
 
 def unlockinfo(event):
     info_label.config(text="Unlock drive(s) if locked by mistake.")
@@ -396,11 +395,11 @@ def showtocinfo(event):
 def savetocinfo(event):
     info_label.config(text="Overwrite TOC-file. A backup (.toc.bak) will be triggered before saving.")
 
-def showcueinfo(event):
-    info_label.config(text="Open CUE-file.")
-
 def replacepathinfo(event):
     info_label.config(text="Replace WAV-file path in TOC-file with relative path. Replace OLD_PATH and press Run to start.")
+
+def showcueinfo(event):
+    info_label.config(text="Open CUE-file.")
 
 def savecueinfo(event):
     info_label.config(text="Overwrite CUE-file. A backup (.cue.bak) will be triggered before saving.")
