@@ -8,6 +8,8 @@ CDMasterTool is a tool for audio CD creation, TOC and CUE files manipulation, CD
 
 ![screenshot](https://github.com/sonejostudios/CDMasterTool/blob/master/CDMasterTool.png "CDMasterTool")
 
+CDMasterTool in action: https://youtu.be/A4S1s92GtNU
+
 
 __Main Features:__
 
@@ -57,7 +59,7 @@ You may add first Flacon's ppa to your system (see Flacon's homepage).
 
 __Notes:__
 
-* CDMasterTool was one of my playground for learning Python, I'm sure the code is not the best, but it works! If you have suggestions or you want to help, please contact me. Otherwise, have fun with it, I hope it wilol be helpful for you!
+* CDMasterTool is a really simple GUI for different GNU/Linux tools, I'm sure the code is not the best, but it works and I really like working with it. If you have suggestions or you want to help, please contact me. Otherwise, have fun with it, I hope it wilol be helpful for you!
 * CDMasterTool is for now a Linux-only Software. It was tested only on LinuxMint MATE, but it should work also on Cinnamon, GNOME and KDE. No OSX and Windows versions are available.
 
 
