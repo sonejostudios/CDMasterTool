@@ -11,7 +11,7 @@ import os
 
 version = "1.0"
 
-devmode = 1
+devmode = 0
 
 white = "#ffffff"
 black = "#000000"
