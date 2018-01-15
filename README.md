@@ -46,7 +46,9 @@ __Requirements:__
 * Flacon (https://flacon.github.io/)
 * VLC (https://www.videolan.org/vlc/)
 
-
+On Ubuntu/Mint: 
+1. add Flacon's ppa to your system (see Flacon's homepage)
+2. ```sudo apt-get install python3 python3-tk libcdio-utils rpl cdrdao vlc flacon```
 
 
 __Notes:__
@@ -66,7 +68,7 @@ __Tips and Tricks:__
 * TOC files are used for burning (Disk-at-Once, via Cdrdao).
 * CUE files are used to split with Flacon and play with VLC player (needs Flacon and VLC).
 * Cdrdao and libcdio can do much more. Type "cdrdao" or "cd-info/cd-drive --help" and Run it. See also http://cdrdao.sourceforge.net/ and https://www.gnu.org/software/libcdio/
-* CDMasterTool was inspired mostly by http://apocalyptech.com/linux/cdtext/. Have a look, there are a lot of good info!
+* CDMasterTool was mostly inspired by http://apocalyptech.com/linux/cdtext/. Have a look, there are a lot of good info!
  
 
 
