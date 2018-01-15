@@ -48,8 +48,9 @@ __Requirements:__
 * Flacon (https://flacon.github.io/)
 * VLC (https://www.videolan.org/vlc/)
 
-On Ubuntu/Mint: 
--add Flacon's ppa to your system (see Flacon's homepage)
+On Ubuntu/Mint:
+
+first, add Flacon's ppa to your system (see Flacon's homepage), then:
 ```
 sudo apt-get install python3 python3-tk libcdio-utils rpl xterm cdrdao vlc flacon
 ```
