@@ -51,7 +51,7 @@ __Requirements:__
 
 __Notes:__
 
-* CDMasterTool was one of my playground for learning Python, I'm sure the code is not the best, but it works!. If you have suggestions or you want to help, please contact me. Otherwise, have fun with it, I hope it wilol be helpful for you!
+* CDMasterTool was one of my playground for learning Python, I'm sure the code is not the best, but it works! If you have suggestions or you want to help, please contact me. Otherwise, have fun with it, I hope it wilol be helpful for you!
 * CDMasterTool is for now a Linux-only Software. It was tested only on LinuxMint MATE, but it should work also on Cinnamon, GNOME and KDE. No OSX and Windows versions are available.
 
 
@@ -66,6 +66,7 @@ __Tips and Tricks:__
 * TOC files are used for burning (Disk-at-Once, via Cdrdao).
 * CUE files are used to split with Flacon and play with VLC player (needs Flacon and VLC).
 * Cdrdao and libcdio can do much more. Type "cdrdao" or "cd-info/cd-drive --help" and Run it. See also http://cdrdao.sourceforge.net/ and https://www.gnu.org/software/libcdio/
+* CDMasterTool was inspired mostly by http://apocalyptech.com/linux/cdtext/. Have a look, there are a lot of good info!
  
 
 
