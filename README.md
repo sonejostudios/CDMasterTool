@@ -9,7 +9,7 @@ BookerDB is based on a csv database, classified by dates. It is possible to add/
 It has a monitor to show all kind of filters around the database, like coming dates, played dates, statistics, contacts, etc... It can also export database entries into PDF (as info sheet with all important information) to take them as reminder on tour.
 
 
-![screenshot](https://github.com/sonejostudios/BookerDB/blob/master/BookerDB.png "BookerDB")
+![screenshot](https://github.com/sonejostudios/CDMasterTool/blob/master/logo.png "CDMasterTool")
 
 
 __Main Features:__
