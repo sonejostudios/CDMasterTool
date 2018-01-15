@@ -38,8 +38,8 @@ python3 CDMasterTool.py
 ```
 
 3. On Ubuntu/Mint: 
-1.. add Flacon's ppa to your system (see Flacon's homepage)
-2.. ```sudo apt-get install python3 python3-tk libcdio-utils rpl xterm cdrdao vlc flacon```
+* add Flacon's ppa to your system (see Flacon's homepage)
+* ```sudo apt-get install python3 python3-tk libcdio-utils rpl xterm cdrdao vlc flacon```
 
 
 __Requirements:__
