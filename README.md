@@ -4,7 +4,7 @@ Tool for Audio CDs, TOC, CUE, CD-Text, CD-Burning, Drive and CD analysis and mor
 
 __Description:__
 
-CDMastertool is a Tool for Audio CD creation, TOC and CUE files manipulation, CD burning with CD-TEXT, drive(s) and CD analysis and Commandline launcher. It is mainly based of Cdrdao and libcdio, as well as a couple of other GNU/Linux tools. The main goal is to burn Audio CDs with CD-TEXT, out of a DAW's Red Book export WAV/TOC/CUE combination.
+CDMasterTool is a tool for audio CD creation, TOC and CUE files manipulation, CD burning with CD-TEXT, drive(s) and CD analysis and Commandline launcher. It is mainly based of Cdrdao and libcdio, as well as a couple of other GNU/Linux tools. The main goal is to burn Audio CDs with CD-TEXT, out of a DAW's Red Book export WAV/TOC/CUE combination.
 
 ![screenshot](https://github.com/sonejostudios/CDMasterTool/blob/master/CDMasterTool.png "CDMasterTool")
 

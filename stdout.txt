@@ -1,0 +1,87 @@
+Script started on Mon 15 Jan 2018 08:20:58 PM CET
+cd-info version 0.83 x86_64-pc-linux-gnu
+Copyright (c) 2003, 2004, 2005, 2007, 2008, 2011 R. Bernstein
+This is free software; see the source for copying conditions.
+There is NO warranty; not even for MERCHANTABILITY or FITNESS FOR A
+PARTICULAR PURPOSE.
+CD location   : /dev/cdrom
+CD driver name: GNU/Linux
+   access mode: IOCTL
+
+Vendor                      : MATSHITA
+Model                       : DVD-RAM UJ870A  
+Revision                    : SB04
+Hardware                                  : CD-ROM or DVD
+Can eject                                 : Yes
+Can close tray                            : Yes
+Can disable manual eject                  : Yes
+Can select juke-box disc                  : No
+
+Can set drive speed                       : No
+Can read multiple sessions (e.g. PhotoCD) : Yes
+Can hard reset device                     : Yes
+
+Reading....
+  Can read Mode 2 Form 1                  : Yes
+  Can read Mode 2 Form 2                  : Yes
+  Can read (S)VCD (i.e. Mode 2 Form 1/2)  : Yes
+  Can read C2 Errors                      : Yes
+  Can read IRSC                           : Yes
+  Can read Media Channel Number (or UPC)  : Yes
+  Can play audio                          : Yes
+  Can read CD-DA                          : Yes
+  Can read CD-R                           : Yes
+  Can read CD-RW                          : Yes
+  Can read DVD-ROM                        : Yes
+
+Writing....
+  Can write CD-RW                         : Yes
+  Can write DVD-R                         : Yes
+  Can write DVD-RAM                       : Yes
+  Can write DVD-RW                        : No
+  Can write DVD+RW                        : No
+__________________________________
+
+Disc mode is listed as: CD-DA
+CD-ROM Track List (1 - 4)
+  #: MSF       LSN    Type   Green? Copy? Channels Premphasis?
+  1: 00:04:00  000150 audio  true   yes   2        no
+  2: 00:49:00  003525 audio  true   yes   2        no
+  3: 02:25:00  010725 audio  true   yes   2        no
+  4: 02:54:37  012937 audio  true   yes   2        no
+170: 04:05:74  018299 leadout (41 MB raw, 40 MB formatted)
+Media Catalog Number (MCN): 0000000000000
+TRACK  1 ISRC: 000000000000
+TRACK  2 ISRC: 000000000000
+TRACK  3 ISRC: 000000000000
+TRACK  4 ISRC: 000000000000
+Last CD Session LSN: 0
+audio status: no status
+volume level port 0: 255 (0..255) 100 (0..100)
+volume level port 1: 255 (0..255) 100 (0..100)
+volume level port 2:   0 (0..255)   0 (0..100)
+volume level port 3:   0 (0..255)   0 (0..100)
+__________________________________
+CD Analysis Report
+
+CD-TEXT for Disc:
+	PERFORMER: superdirt
+	SONGWRITER: vince
+	TITLE: superdirtvince
+CD-TEXT for Track  1:
+	PERFORMER: superdirt
+	SONGWRITER: vince
+	TITLE: lied 1 intro
+CD-TEXT for Track  2:
+	PERFORMER: superdirt
+	SONGWRITER: vince
+	TITLE: lied 2 riddim
+CD-TEXT for Track  3:
+	PERFORMER: superdirt
+	SONGWRITER: vince
+	TITLE: lied 3 break
+CD-TEXT for Track  4:
+	PERFORMER: superdirt
+	SONGWRITER: vince
+	TITLE: lied 4 outro
+Hidden Track   
