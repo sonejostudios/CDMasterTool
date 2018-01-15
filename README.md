@@ -13,13 +13,13 @@ CDMasterTool in action: https://youtu.be/A4S1s92GtNU
 
 __Main Features:__
 
-* Drive(s) analysis
-* Unlock and Eject CD
 * CD analysis (CD info, track info, MCN, ISRC, CD-TEXT, CDDB, Medium, etc...)
 * Open, edit and save TOC and CUE files
 * Replace TOC file path to relative or absolute
 * Burning simulation and burning with CD-TEXT
 * Adjust driver, device and speed before burning
+* Drive(s) analysis
+* Unlock and Eject CD
 * Direct link to Flacon to split WAV file according to CUE file and export (WAV, flac, AAC, Ogg, Opus, etc...)
 * Direct link to VLC: Play CD (with CD-TEXT) and play CUE file
 * Commandline launcher for Cdrdao, libcdio and more
