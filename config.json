@@ -1,0 +1,27 @@
+{
+"wavfile": "",
+
+"cd-drive": 1,
+"drive-info": 1,
+"scanbus": 1,
+"unlock": 1,
+"eject": 1,
+
+"cd-info": 1,
+"discid": 1,
+"disk-info": 1,
+
+"opentoc": 1,
+"savetoc": 1,
+"replacepath": 1,
+
+"opencue": 1,
+"savecue": 1,
+
+"simulate": 1,
+"burn": 1,
+
+"flaconsplit": 1,
+"vlccue": 1,
+"vlccd": 1
+}

@@ -120,3 +120,10 @@ __Help commands:__
 * rpl -h
 
 
+__Configuration:__
+
+You can configure CDMasterTool via the configuration file: config.json
+* You can put a default WAV-file path to open on start
+* You can hide or show specific buttons (0 = hide, 1 = show) 
+
+

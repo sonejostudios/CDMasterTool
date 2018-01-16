@@ -7,11 +7,17 @@ from tkinter import filedialog
 from tkinter.filedialog import askopenfilename
 
 import os
+import json
 
 
-version = "1.1"
+version = "1.2"
 
-devmode = 0
+
+# read config file
+configfile = open('config.json', 'r')
+config = json.loads(configfile.read())
+configfile.close()
+
 
 white = "#ffffff"
 black = "#000000"
@@ -28,6 +34,7 @@ drive_presets = ["/dev/sr0", "/dev/sr1"]
 speed = ""
 speedcom = ""
 burnsim = "simulate"
+
 
 
 def doNothing():
@@ -207,11 +214,6 @@ def scanbus():
     run_command("noterm")
 
 
-def driverlist():
-    print("driverlist")
-    command_entry.delete(0.0, END)
-    command_entry.insert(0.0, "cdrdao simulate --driver none " + wavfile_entry.get() + ".toc")
-    run_command("noterm")
 
 def unlock():
     print("unlock")
@@ -360,10 +362,10 @@ def open_file():
 def readme():
     command_entry.insert(0.0, "Welcome to CDMasterTool!")
     readmefile = open("README.md", "r")
-    readme = readmefile.read()
+    readmetext = readmefile.read()
     monitor.config(wrap=WORD)
     monitor.delete(0.0, END)
-    monitor.insert(0.0, readme)
+    monitor.insert(0.0, readmetext)
     readmefile.close()
 
 
@@ -383,9 +385,6 @@ def driveinfoinfo(event):
 
 def scanbusinfo(event):
     info_label.config(text="Scan system for drive(s).")
-
-#def driversinfo(event):
-#    info_label.config(text="Show available drivers.")
 
 def unlockinfo(event):
     info_label.config(text="Unlock drive(s) if locked by mistake.")
@@ -490,42 +489,41 @@ button_frame.grid(row=3, column=0, pady=5, padx=5, sticky=W+N, rowspan=2)
 
 
 # Button cd-drive
-cddrive_button = ttk.Button(button_frame, text="cd-drive", width=11, state="normal", command= cd_drive)
-cddrive_button.bind("<Enter>", cddriveinfo)
-cddrive_button.bind("<Leave>", noinfo)
-cddrive_button.pack()
+if config["cd-drive"] == 1:
+    cddrive_button = ttk.Button(button_frame, text="cd-drive", width=11, state="normal", command= cd_drive)
+    cddrive_button.bind("<Enter>", cddriveinfo)
+    cddrive_button.bind("<Leave>", noinfo)
+    cddrive_button.pack()
 
 # Button Drive-info
-driveinfo_button = ttk.Button(button_frame, text="drive-info", width=11, state="normal", command=driveinfo)
-driveinfo_button.bind("<Enter>", driveinfoinfo)
-driveinfo_button.bind("<Leave>", noinfo)
-driveinfo_button.pack()
+if config["drive-info"] == 1:
+    driveinfo_button = ttk.Button(button_frame, text="drive-info", width=11, state="normal", command=driveinfo)
+    driveinfo_button.bind("<Enter>", driveinfoinfo)
+    driveinfo_button.bind("<Leave>", noinfo)
+    driveinfo_button.pack()
 
 
 # Button Scanbus
-scanbus_button = ttk.Button(button_frame, text="scanbus", width=11, state="normal", command= scanbus)
-scanbus_button.bind("<Enter>", scanbusinfo)
-scanbus_button.bind("<Leave>", noinfo)
-scanbus_button.pack()
-
-# Button drivers - needed?
-#driverlist_button = ttk.Button(button_frame, text="drivers", width=11, state="normal", command= driverlist)
-#driverlist_button.bind("<Enter>", driversinfo)
-#driverlist_button.bind("<Leave>", noinfo)
-#driverlist_button.pack()
+if config["scanbus"] == 1:
+    scanbus_button = ttk.Button(button_frame, text="scanbus", width=11, state="normal", command= scanbus)
+    scanbus_button.bind("<Enter>", scanbusinfo)
+    scanbus_button.bind("<Leave>", noinfo)
+    scanbus_button.pack()
 
 
 # Button Unlock
-unlock_button = ttk.Button(button_frame, text="unlock", width=11, state="normal", command= unlock)
-unlock_button.bind("<Enter>", unlockinfo)
-unlock_button.bind("<Leave>", noinfo)
-unlock_button.pack()
+if config["unlock"] == 1:
+    unlock_button = ttk.Button(button_frame, text="unlock", width=11, state="normal", command= unlock)
+    unlock_button.bind("<Enter>", unlockinfo)
+    unlock_button.bind("<Leave>", noinfo)
+    unlock_button.pack()
 
 # Button Eject
-eject_button = ttk.Button(button_frame, text="eject", width=11, state="normal", command= eject)
-eject_button.bind("<Enter>", ejectinfo)
-eject_button.bind("<Leave>", noinfo)
-eject_button.pack()
+if config["eject"] == 1:
+    eject_button = ttk.Button(button_frame, text="eject", width=11, state="normal", command= eject)
+    eject_button.bind("<Enter>", ejectinfo)
+    eject_button.bind("<Leave>", noinfo)
+    eject_button.pack()
 
 
 #Spacer
@@ -534,22 +532,25 @@ spacer_label.pack()
 
 
 # Button cd-info
-cdinfo_button = ttk.Button(button_frame, text="cd-info", width=11, state="normal", command= cd_info)
-cdinfo_button.bind("<Enter>", cdinfoinfo)
-cdinfo_button.bind("<Leave>", noinfo)
-cdinfo_button.pack()
+if config["cd-info"] == 1:
+    cdinfo_button = ttk.Button(button_frame, text="cd-info", width=11, state="normal", command= cd_info)
+    cdinfo_button.bind("<Enter>", cdinfoinfo)
+    cdinfo_button.bind("<Leave>", noinfo)
+    cdinfo_button.pack()
 
 # Button discid
-diskinfo_button = ttk.Button(button_frame, text="disc id", width=11, state="normal", command= diskid)
-diskinfo_button.bind("<Enter>", discidinfo)
-diskinfo_button.bind("<Leave>", noinfo)
-diskinfo_button.pack()
+if config["discid"] == 1:
+    diskinfo_button = ttk.Button(button_frame, text="disc id", width=11, state="normal", command= diskid)
+    diskinfo_button.bind("<Enter>", discidinfo)
+    diskinfo_button.bind("<Leave>", noinfo)
+    diskinfo_button.pack()
 
 # Button Disk-info
-diskinfo_button = ttk.Button(button_frame, text="disk-info", width=11, state="normal", command= diskinfo)
-diskinfo_button.bind("<Enter>", diskinfoinfo)
-diskinfo_button.bind("<Leave>", noinfo)
-diskinfo_button.pack()
+if config["disk-info"] == 1:
+    diskinfo_button = ttk.Button(button_frame, text="disk-info", width=11, state="normal", command= diskinfo)
+    diskinfo_button.bind("<Enter>", diskinfoinfo)
+    diskinfo_button.bind("<Leave>", noinfo)
+    diskinfo_button.pack()
 
 #Spacer
 spacer_label = Label(button_frame, text="", font=("Helvetica", spacerheight), justify=LEFT)
@@ -557,22 +558,25 @@ spacer_label.pack()
 
 
 # Button open toc
-opentoc_button = ttk.Button(button_frame, text="open toc", width=11, state="normal", command= open_toc)
-opentoc_button.bind("<Enter>", showtocinfo)
-opentoc_button.bind("<Leave>", noinfo)
-opentoc_button.pack()
+if config["opentoc"] == 1:
+    opentoc_button = ttk.Button(button_frame, text="open toc", width=11, state="normal", command= open_toc)
+    opentoc_button.bind("<Enter>", showtocinfo)
+    opentoc_button.bind("<Leave>", noinfo)
+    opentoc_button.pack()
 
 # Button save toc
-savetoc_button = ttk.Button(button_frame, text="save toc", width=11, state="disable", command= save_toc)
-savetoc_button.bind("<Enter>", savetocinfo)
-savetoc_button.bind("<Leave>", noinfo)
-savetoc_button.pack()
+if config["savetoc"] == 1:
+    savetoc_button = ttk.Button(button_frame, text="save toc", width=11, state="disable", command= save_toc)
+    savetoc_button.bind("<Enter>", savetocinfo)
+    savetoc_button.bind("<Leave>", noinfo)
+    savetoc_button.pack()
 
 # Button path replace
-opentoc_button = ttk.Button(button_frame, text="replace path*", width=11, state="normal", command= replace_path)
-opentoc_button.bind("<Enter>", replacepathinfo)
-opentoc_button.bind("<Leave>", noinfo)
-opentoc_button.pack()
+if config["replacepath"] == 1:
+    opentoc_button = ttk.Button(button_frame, text="replace path*", width=11, state="normal", command= replace_path)
+    opentoc_button.bind("<Enter>", replacepathinfo)
+    opentoc_button.bind("<Leave>", noinfo)
+    opentoc_button.pack()
 
 #Spacer
 spacer_label = Label(button_frame, text="", font=("Helvetica", spacerheight), justify=LEFT)
@@ -580,16 +584,18 @@ spacer_label.pack()
 
 
 # Button open cue
-opencue_button = ttk.Button(button_frame, text="open cue", width=11, state="normal", command= open_cue)
-opencue_button.bind("<Enter>", showcueinfo)
-opencue_button.bind("<Leave>", noinfo)
-opencue_button.pack()
+if config["opencue"] == 1:
+    opencue_button = ttk.Button(button_frame, text="open cue", width=11, state="normal", command= open_cue)
+    opencue_button.bind("<Enter>", showcueinfo)
+    opencue_button.bind("<Leave>", noinfo)
+    opencue_button.pack()
 
 # Button save cue
-savecue_button = ttk.Button(button_frame, text="save cue", width=11, state="disable", command= save_cue)
-savecue_button.bind("<Enter>", savecueinfo)
-savecue_button.bind("<Leave>", noinfo)
-savecue_button.pack()
+if config["savecue"] == 1:
+    savecue_button = ttk.Button(button_frame, text="save cue", width=11, state="disable", command= save_cue)
+    savecue_button.bind("<Enter>", savecueinfo)
+    savecue_button.bind("<Leave>", noinfo)
+    savecue_button.pack()
 
 #Spacer
 spacer_label = Label(button_frame, text="", font=("Helvetica", spacerheight), justify=LEFT)
@@ -597,16 +603,18 @@ spacer_label.pack()
 
 
 # Button Simulate
-simulate_button = ttk.Button(button_frame, text="simulate*", width=11, state="normal", command= simulate)
-simulate_button.bind("<Enter>", simulateinfo)
-simulate_button.bind("<Leave>", noinfo)
-simulate_button.pack()
+if config["simulate"] == 1:
+    simulate_button = ttk.Button(button_frame, text="simulate*", width=11, state="normal", command= simulate)
+    simulate_button.bind("<Enter>", simulateinfo)
+    simulate_button.bind("<Leave>", noinfo)
+    simulate_button.pack()
 
 # Button Burn
-burn_button = ttk.Button(button_frame, text="burn*", width=11, state="normal", command= burn)
-burn_button.bind("<Enter>", burninfo)
-burn_button.bind("<Leave>", noinfo)
-burn_button.pack()
+if config["burn"] == 1:
+    burn_button = ttk.Button(button_frame, text="burn*", width=11, state="normal", command= burn)
+    burn_button.bind("<Enter>", burninfo)
+    burn_button.bind("<Leave>", noinfo)
+    burn_button.pack()
 
 #Spacer
 spacer_label = Label(button_frame, text="", font=("Helvetica", spacerheight), justify=LEFT)
@@ -614,22 +622,25 @@ spacer_label.pack()
 
 
 # Button flacon
-flacon_button = ttk.Button(button_frame, text="flacon split", width=11, state="normal", command= flacon)
-flacon_button.bind("<Enter>", flaconinfo)
-flacon_button.bind("<Leave>", noinfo)
-flacon_button.pack()
+if config["flaconsplit"] == 1:
+    flacon_button = ttk.Button(button_frame, text="flacon split", width=11, state="normal", command= flacon)
+    flacon_button.bind("<Enter>", flaconinfo)
+    flacon_button.bind("<Leave>", noinfo)
+    flacon_button.pack()
 
 # Button vlc cue
-vlccue_button = ttk.Button(button_frame, text="vlc cue", width=11, state="normal", command= vlccue)
-vlccue_button.bind("<Enter>", vlccueinfo)
-vlccue_button.bind("<Leave>", noinfo)
-vlccue_button.pack()
+if config["vlccue"] == 1:
+    vlccue_button = ttk.Button(button_frame, text="vlc cue", width=11, state="normal", command= vlccue)
+    vlccue_button.bind("<Enter>", vlccueinfo)
+    vlccue_button.bind("<Leave>", noinfo)
+    vlccue_button.pack()
 
 # Button vlc cd
-vlccd_button = ttk.Button(button_frame, text="vlc cd", width=11, state="normal", command= vlccd)
-vlccd_button.bind("<Enter>", vlccdinfo)
-vlccd_button.bind("<Leave>", noinfo)
-vlccd_button.pack()
+if config["vlccd"] == 1:
+    vlccd_button = ttk.Button(button_frame, text="vlc cd", width=11, state="normal", command= vlccd)
+    vlccd_button.bind("<Enter>", vlccdinfo)
+    vlccd_button.bind("<Leave>", noinfo)
+    vlccd_button.pack()
 
 
 
@@ -711,9 +722,8 @@ info_label.grid(row=4, column=1, columnspan=1, rowspan=1, sticky=W, padx=2, pady
 
 
 
-#dev mode auto insert toc
-if devmode == 1:
-    wavfile_entry.insert(0, "/media/sda7/StudioSession3/CD-TEXT/ardour/cdtext/export/cdtext_superdirtvince.wav")
+#insert default wav file if needed
+wavfile_entry.insert(0, config["wavfile"])
 
 # show readme on start
 readme()
