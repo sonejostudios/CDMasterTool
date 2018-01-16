@@ -9,7 +9,7 @@ from tkinter.filedialog import askopenfilename
 import os
 
 
-version = "1.0"
+version = "1.1"
 
 devmode = 0
 
@@ -37,7 +37,7 @@ def doNothing():
 def cd_info():
     print("cd-info")
     command_entry.delete(0.0,END)
-    command_entry.insert(0.0, "cd-info")
+    command_entry.insert(0.0, "cd-info --no-device-info")
     run_command("term")
 
 
@@ -98,6 +98,7 @@ def open_toc():
     print("open toc")
     showcuefile = open(wavfile_entry.get() + ".toc", "r")
     toc = showcuefile.read()
+    monitor.config(wrap=NONE)
     monitor.delete(0.0, END)
     monitor.insert(0.0, toc)
     showcuefile.close()
@@ -133,6 +134,7 @@ def open_cue():
     print("open cue")
     showtocfile = open(wavfile_entry.get() + ".cue", "r")
     toc = showtocfile.read()
+    monitor.config(wrap=NONE)
     monitor.delete(0.0, END)
     monitor.insert(0.0, toc)
     showtocfile.close()
@@ -295,8 +297,10 @@ def on_run_command2(event):
     run_command("term")
 
 def run_command(x):
+
     command = command_entry.get(0.0, END)
     print("run : " + command)
+
 
     # create command with text dump
     comtermout = 'script -c "' + command + '" -q stdout.txt'
@@ -311,14 +315,13 @@ def run_command(x):
         #os.system(comtermout)
         os.system("xterm -iconic -e ' " + comtermout + " ' ")
 
-
-
-
     # read stoutfile
     read_stdout()
 
     # disable saves
     disable_saves()
+
+
 
 
 # read stdout file and insert text in monitor
@@ -353,6 +356,16 @@ def open_file():
         pass
 
 
+# welcome and read me
+def readme():
+    command_entry.insert(0.0, "Welcome to CDMasterTool!")
+    readmefile = open("README.md", "r")
+    readme = readmefile.read()
+    monitor.config(wrap=WORD)
+    monitor.delete(0.0, END)
+    monitor.insert(0.0, readme)
+    readmefile.close()
+
 
 #---------INFOS-----------
 
@@ -381,7 +394,7 @@ def ejectinfo(event):
     info_label.config(text="Eject drive(s).")
 
 def cdinfoinfo(event):
-    info_label.config(text="Scan CD and show drive info, CD info, track info, MCN, ISRC and CD-TEXT.")
+    info_label.config(text="Scan CD and show CD info, track info, MCN, ISRC and CD-TEXT.")
 
 def discidinfo(event):
     info_label.config(text="Scan CD and show tracks (number, start, length) and check CDDB (freedb.org).")
@@ -435,7 +448,7 @@ def speedlistinfo(event):
     info_label.config(text="Choose drive speed for simulation and burning.")
 
 def commandinfo(event):
-    info_label.config(text="Write command. Type 'cdrdao' or 'cd-info --help' for help.")
+    info_label.config(text="Write command. Type 'cdrdao' or 'cd-info -?' or 'rpl -h' for help.")
 
 
 
@@ -701,6 +714,9 @@ info_label.grid(row=4, column=1, columnspan=1, rowspan=1, sticky=W, padx=2, pady
 #dev mode auto insert toc
 if devmode == 1:
     wavfile_entry.insert(0, "/media/sda7/StudioSession3/CD-TEXT/ardour/cdtext/export/cdtext_superdirtvince.wav")
+
+# show readme on start
+readme()
 
 # mainloop
 #root.protocol('WM_DELETE_WINDOW', on_quit)

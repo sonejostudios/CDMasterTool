@@ -15,7 +15,7 @@ __Main Features:__
 
 * CD analysis (CD info, track info, MCN, ISRC, CD-TEXT, CDDB, Medium, etc...)
 * Open, edit and save TOC and CUE files
-* Replace TOC file path to relative or absolute
+* Replace TOC file path to relative
 * Burning simulation and burning with CD-TEXT
 * Adjust driver, device and speed before burning
 * Drive(s) analysis
@@ -59,8 +59,8 @@ You may add first Flacon's ppa to your system (see Flacon's homepage).
 
 __Notes:__
 
-* CDMasterTool is a really simple GUI for different GNU/Linux tools, I'm sure the code is not the best, but it works and I really like working with it. If you have suggestions or you want to help, please contact me. Otherwise, have fun with it, I hope it wilol be helpful for you!
-* CDMasterTool is for now a Linux-only Software. It was tested only on LinuxMint MATE, but it should work also on Cinnamon, GNOME and KDE. No OSX and Windows versions are available.
+* CDMasterTool is a really simple GUI for different GNU/Linux tools, I'm sure the code is not the best, but it works and I really like working with it. If you have suggestions or you want to help, please contact me. Otherwise, have fun with it, I hope it will be helpful for you!
+* CDMasterTool is for now a Linux-only Software. It was tested only on LinuxMint 17 MATE, but it should work also on Cinnamon, GNOME and KDE. No OSX and Windows versions are available.
 
 
 __Tips and Tricks:__
@@ -93,7 +93,7 @@ __Buttons:__
 
 * open toc : Open TOC-file.
 * save toc : Overwrite TOC-file. A backup (.toc.bak) will be triggered before saving.
-* replace path* : Create a command to replace WAV-file path in TOC-file with relative path. Manually replace OLD_PATH in the command with the old WAV file path present in the TOC file. Press Run to start replacing. A backup (.toc.bak) will be triggered before.
+* replace path* : Create a command to replace WAV-file path in TOC-file with relative path. Manually replace OLD_PATH in the command with the old WAV file path present in the TOC file. Press Run to start replacing. A backup (.toc.bak) will be triggered before. You can also use the rpl command to replace whatever you want, with the syntax: rpl OLD_WORD NEW_WORD file.toc/.cue/.txt.
 
 * open cue : Open CUE-file.
 * save cue : Overwrite CUE-file. A backup (.cue.bak) will be triggered before saving.
@@ -112,5 +112,11 @@ __Buttons:__
 Buttons with * will just create the commands (and don't run them). Press Run to do that.
 
 
+__Help:__
+
+Help commands:
+* cdrdao
+* cd-info -?
+* rpl -h
 
 
