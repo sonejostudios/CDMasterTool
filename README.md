@@ -112,9 +112,8 @@ __Buttons:__
 Buttons with * will just create the commands (and don't run them). Press Run to do that.
 
 
-__Help:__
+__Help commands:__
 
-Help commands:
 * cdrdao
 * cd-info -?
 * rpl -h
