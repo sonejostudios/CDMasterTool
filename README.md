@@ -69,11 +69,12 @@ __Tips and Tricks:__
 * Red Book CD Export: At least WAV, 44.100kHz, 16bit, TOC and CUE file with track titles and performer
 * Open CDMasterTool and copy/paste the exported WAV file into the WAV-file entry of CDMasterTool
 * Cdrdao needs to have the same metadata in the CD title than in the tracks, otherwise, it will not burn. Be sure it is correct.
-* Replace the WAV-file path in the TOC-file to a relative path (or somewhere else) (needs rpl). The CUE file path is already relative.
+* Replace the WAV-file path in the TOC-file to a relative path (or somewhere else) (needs rpl). The CUE file path is already relative. You can also replace anything in a text file via the rpl command (Type "rpl -h" for more information)
 * If you change a metadata in the TOC file, you need to change it in the CUE file as well.
 * TOC files are used for burning (Disk-at-Once, via Cdrdao).
 * CUE files are used to split with Flacon and play with VLC player (needs Flacon and VLC).
-* Cdrdao and libcdio can do much more. Type "cdrdao" or "cd-info/cd-drive --help" and Run it. See also http://cdrdao.sourceforge.net/ and https://www.gnu.org/software/libcdio/
+* Right-click on text entries will delete the content.
+* Cdrdao and libcdio can do much more. Type "cdrdao" or "cd-info/cd-drive -?" and Run it. See also http://cdrdao.sourceforge.net/ and https://www.gnu.org/software/libcdio/
 * CDMasterTool was mostly inspired by http://apocalyptech.com/linux/cdtext/. Have a look, there are a lot of good info!
  
 
@@ -87,7 +88,7 @@ __Buttons:__
 * unlock : Unlock drive(s) if locked by mistake.
 * eject : Eject drive(s).
 
-* cd-info : Scan CD and show drive info, CD info, track info, MCN, ISRC and CD-TEXT.
+* cd-info : Scan CD and show CD info, track info, MCN, ISRC and CD-TEXT.
 * disc id : Scan CD and show tracks (number, start, length) and check CDDB (freedb.org).
 * disk-info : Scan CD and show CD info (medium only).
 
@@ -98,8 +99,8 @@ __Buttons:__
 * open cue : Open CUE-file.
 * save cue : Overwrite CUE-file. A backup (.cue.bak) will be triggered before saving.
 
-* simulate* : Create command with options for CD Burning simulation (from TOC-file). Press Run to start.
-* burn* : Create command with options for CD burning (from TOC-file). Press Run to start.
+* simulate* : Create command with options (driver, device and speed) for CD burning simulation (from TOC-file). Press Run to the simulation.
+* burn* : Create command with options (driver, device and speed) for CD burning (from TOC-file). Press Run to start burning.
 
 * flacon split : Split and convert tracks with Flacon/CUE-file. (WAV, Flac, Mp3, Ogg, etc...)
 * vlc cue : Open CUE-file with VLC-Player.
