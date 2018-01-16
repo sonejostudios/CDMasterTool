@@ -10,7 +10,7 @@ import os
 import json
 
 
-version = "1.2"
+version = "1.3"
 
 
 # read config file
@@ -18,18 +18,14 @@ configfile = open('config.json', 'r')
 config = json.loads(configfile.read())
 configfile.close()
 
+driver_presets = config["driver"]
+device_presets = config["device"]
+speed_presets = config["speed"]
+spacerheight = config["spacerheight"]
 
 white = "#ffffff"
 black = "#000000"
 
-spacerheight = 5
-
-drivers = ["generic-mmc:0x10", "generic-mmc", "generic-mmc-raw",
-           "cdd2600", "plextor", "plextor-scan", "ricoh-mp6200", "sony-cdu920", "sony-cdu948", "taiyo-yuden", "teac-cdr55", "toshiba", "yamaha-cdr10x"]
-
-speed_presets = ["max", "4", "8", "16", "24"]
-
-drive_presets = ["/dev/sr0", "/dev/sr1"]
 
 speed = ""
 speedcom = ""
@@ -652,7 +648,7 @@ driver_label.grid(row=0, column=0, padx=0)
 
 driver_entry = ttk.Combobox(driver_frame, width=21)
 #driver_entry.bind("<<ComboboxSelected>>", doNothing)
-driver_entry["values"] = drivers
+driver_entry["values"] = driver_presets
 driver_entry.current(0) # set init preset
 driver_entry.bind("<Enter>", driverlistinfo)
 driver_entry.bind("<Leave>", noinfo)
@@ -662,7 +658,7 @@ device_label = Label(driver_frame, text="Device :", justify=LEFT)
 device_label.grid(row=0, column=2, padx=0)
 
 device_entry = ttk.Combobox(driver_frame, width=15)
-device_entry["values"] = drive_presets
+device_entry["values"] = device_presets
 device_entry.current(0) # set init preset
 device_entry.bind("<Enter>", devicelistinfo)
 device_entry.bind("<Leave>", noinfo)

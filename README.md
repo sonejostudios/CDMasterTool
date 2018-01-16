@@ -123,7 +123,10 @@ __Help commands:__
 __Configuration:__
 
 You can configure CDMasterTool via the configuration file: config.json
+WARNING: Make a backup first before changing anything in the config file!
 * You can put a default WAV-file path to open on start
-* You can hide or show specific buttons (0 = hide, 1 = show) 
+* You can change the driver list, the device list and the speed list (space separated values). The first item in the list will be choosen by default. Change them only if you are really sure you know what you are doing!
+* You can hide or show specific buttons (0 = hide, 1 = show)
+* You can change the spacer height between button groups (default = 5)
 
 
