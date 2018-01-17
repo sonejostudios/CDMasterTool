@@ -1,5 +1,5 @@
 # CDMasterTool
-Tool for Audio CDs, TOC, CUE, CD-Text, CD-Burning, Drive and CD analysis and more.
+Tool for Audio CDs, TOC, CUE, CD-Text, CD-Burning, Drive/CD analysis and more.
 
 
 __Description:__
@@ -24,7 +24,6 @@ __Main Features:__
 * Direct link to VLC: Play CD (with CD-TEXT) and play CUE file
 * Commandline launcher for Cdrdao, libcdio and more
 * Auto description for buttons and entries
-
   
 
 __Installation:__
@@ -38,7 +37,6 @@ git clone https://github.com/sonejostudios/CDMasterTool.git
 ```
 python3 CDMasterTool.py
 ```
-
 
 
 __Requirements:__
@@ -76,8 +74,6 @@ __Tips and Tricks:__
 * Right-click on text entries will delete the content.
 * Cdrdao and libcdio can do much more. Type "cdrdao" or "cd-info/cd-drive -?" and Run it. See also http://cdrdao.sourceforge.net/ and https://www.gnu.org/software/libcdio/
 * CDMasterTool was mostly inspired by http://apocalyptech.com/linux/cdtext/. Have a look, there are a lot of good info!
- 
-
 
 
 __Buttons:__
@@ -99,7 +95,7 @@ __Buttons:__
 * open cue : Open CUE-file.
 * save cue : Overwrite CUE-file. A backup (.cue.bak) will be triggered before saving.
 
-* simulate* : Create command with options (driver, device and speed) for CD burning simulation (from TOC-file). Press Run to the simulation.
+* simulate* : Create command with options (driver, device and speed) for CD burning simulation (from TOC-file). Press Run to start the simulation.
 * burn* : Create command with options (driver, device and speed) for CD burning (from TOC-file). Press Run to start burning.
 
 * flacon split : Split and convert tracks with Flacon/CUE-file. (WAV, Flac, Mp3, Ogg, etc...)
@@ -122,7 +118,7 @@ __Help commands:__
 
 __Configuration:__
 
-You can configure CDMasterTool via the configuration file: config.json
+* You can configure CDMasterTool via the configuration file: config.json
 WARNING: Make a backup first before changing anything in the config file!
 * You can put a default WAV-file path to open on start
 * You can change the driver list, the device list and the speed list (space separated values). The first item in the list will be choosen by default. Change them only if you are really sure you know what you are doing!
