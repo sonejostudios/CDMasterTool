@@ -20,7 +20,7 @@ __Main Features:__
 * Adjust driver, device and speed before burning
 * Drive(s) analysis
 * Unlock and Eject CD
-* Direct link to external split application to split WAV file according to CUE file and export.
+* Direct link to external split application to split WAV file according to CUE file and export
 * Direct link to music player: Play CD (with CD-TEXT) and play CUE file
 * Commandline launcher for Cdrdao, libcdio and more
 * Auto description for buttons and entries
