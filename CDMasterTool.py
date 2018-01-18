@@ -130,6 +130,9 @@ def open_toc():
     # disable save cue
     savecue_button.config(state="disable")
 
+    #enable replace
+    replace_button.config(state="normal")
+
 
 def save_toc():
     print("save toc")
@@ -166,6 +169,9 @@ def open_cue():
     # disable save toc
     savetoc_button.config(state="disable")
 
+    # enable replace
+    replace_button.config(state="normal")
+
 
 def save_cue():
     print("save cue")
@@ -184,10 +190,11 @@ def save_cue():
     disable_saves()
 
 
-# disables save toc and save cue
+# disables save toc and save cue and replace
 def disable_saves():
     savetoc_button.config(state="disable")
     savecue_button.config(state="disable")
+    replace_button.config(state="disable")
 
 
 def eject():
@@ -648,7 +655,7 @@ if config["savecue"] == 1:
 
 # Button replace
 if config["replacetext"] == 1:
-    replace_button = ttk.Button(button_frame, text="replace text*", width=11, state="normal", command= replace_view)
+    replace_button = ttk.Button(button_frame, text="replace text*", width=11, state="disable", command= replace_view)
     replace_button.bind("<Enter>", replaceinfo)
     replace_button.bind("<Leave>", noinfo)
     replace_button.pack()
