@@ -20,8 +20,8 @@ __Main Features:__
 * Adjust driver, device and speed before burning
 * Drive(s) analysis
 * Unlock and Eject CD
-* Direct link to Flacon to split WAV file according to CUE file and export (WAV, flac, AAC, Ogg, Opus, etc...)
-* Direct link to VLC: Play CD (with CD-TEXT) and play CUE file
+* Direct link to external split application to split WAV file according to CUE file and export.
+* Direct link to music player: Play CD (with CD-TEXT) and play CUE file
 * Commandline launcher for Cdrdao, libcdio and more
 * Auto description for buttons and entries
   
@@ -70,7 +70,7 @@ __Tips and Tricks:__
 * Replace the absolute WAV-file path in the TOC-file to a relative path (or somewhere else). The CUE file path is already relative. You can also replace anything in a text.
 * If you change a metadata in the TOC file, you need to change it in the CUE file as well.
 * TOC files are used for burning (Disk-at-Once, via Cdrdao).
-* CUE files are used to split with Flacon and play with VLC player (needs Flacon and VLC).
+* CUE files are used to split with external split application and play with music player (default are Flacon and VLC).
 * Right-click on text entries will delete the content.
 * Cdrdao and libcdio can do much more. Type "cdrdao" or "cd-info/cd-drive -?" and Run it. See also http://cdrdao.sourceforge.net/ and https://www.gnu.org/software/libcdio/
 * CDMasterTool was mostly inspired by http://apocalyptech.com/linux/cdtext/. Have a look, there are a lot of good info!
