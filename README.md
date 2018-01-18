@@ -124,7 +124,7 @@ WARNING: Make a backup first before changing anything in the config file!
 * You can change the driver list, the device list and the speed list (space separated values). The first item in the list will be choosen by default. Change them only if you are really sure you know what you are doing!
 * You can hide or show specific buttons (0 = hide, 1 = show)
 * You can change the spacer height between button groups (default = 5)
-* You can change the terminal application ("terminal"). Some commands are hiding the terminal, put the right command for this in "termhideoption". Default terminal aplication is "xterm" and its hide option is "-iconic"
+* You can change the terminal application ("terminal"). Some commands are hiding the terminal, put the right command for this in "termhideoption". Default terminal aplication is "xterm" and its hide option is "-iconic". If your terminal emulator doesn't have an hide option, leave it blank: "".
 * You can change the music player application ("musicplayer"). Default is "vlc".
 * You can change the external split application ("splitapp"). Default is "flacon".
 
