@@ -461,10 +461,10 @@ def splitinfo(event):
     info_label.config(text="Split and convert tracks with " + split_app + " & CUE-file.")
 
 def playcueinfo(event):
-    info_label.config(text="Open CUE-file with " + music_player + "-player.")
+    info_label.config(text="Open CUE-file with " + music_player + ".")
 
 def playcdinfo(event):
-    info_label.config(text="Open CD with " + music_player + "-player.")
+    info_label.config(text="Open CD with " + music_player + ".")
 
 def wavfileinfo(event):
     info_label.config(text="Full path to WAV-file.")
