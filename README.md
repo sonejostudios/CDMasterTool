@@ -67,7 +67,7 @@ __Tips and Tricks:__
 * Red Book CD Export: At least WAV, 44.100kHz, 16bit, TOC and CUE file with track titles and performer
 * Open CDMasterTool and copy/paste the exported WAV file into the WAV-file entry of CDMasterTool
 * Cdrdao needs to have the same metadata in the CD title than in the tracks, otherwise, it will not burn. Be sure it is correct.
-* Replace the WAV-file path in the TOC-file to a relative path (or somewhere else) (needs rpl). The CUE file path is already relative. You can also replace anything in a text file via the rpl command (Type "rpl -h" for more information)
+* Replace the absolute WAV-file path in the TOC-file to a relative path (or somewhere else). The CUE file path is already relative. You can also replace anything in a text.
 * If you change a metadata in the TOC file, you need to change it in the CUE file as well.
 * TOC files are used for burning (Disk-at-Once, via Cdrdao).
 * CUE files are used to split with Flacon and play with VLC player (needs Flacon and VLC).
@@ -113,7 +113,6 @@ __Help commands:__
 
 * cdrdao
 * cd-info -?
-* rpl -h
 
 
 __Configuration:__

@@ -482,7 +482,7 @@ def speedlistinfo(event):
     info_label.config(text="Choose drive speed for simulation and burning.")
 
 def commandinfo(event):
-    info_label.config(text="Write command. Type 'cdrdao' or 'cd-info -?' or 'rpl -h' for help.")
+    info_label.config(text="Write command. Type 'cdrdao' or 'cd-info -?' for help.")
 
 def replacebuttoninfo(event):
     info_label.config(text="Replace OLD TEXT with NEW TEXT.")
