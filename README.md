@@ -90,10 +90,10 @@ __Buttons:__
 
 * open toc : Open TOC-file.
 * save toc : Overwrite TOC-file. A backup (.toc.bak) will be triggered before saving.
-* replace text* : Show the replace text mask instead of the command line. This will replace the text only in the monitor view and not in the files. You need to save the files (TOC/CUE) manually using the "save toc" and "save cue" buttons.
-
 * open cue : Open CUE-file.
 * save cue : Overwrite CUE-file. A backup (.cue.bak) will be triggered before saving.
+* replace text* : Show the replace text mask instead of the command line. This will replace the text only in the monitor view and not in the files. You need to save the files (TOC/CUE) manually using the "save toc" and "save cue" buttons.
+
 
 * simulate* : Create command with options (driver, device and speed) for CD burning simulation (from TOC-file). Press Run to start the simulation.
 * burn* : Create command with options (driver, device and speed) for CD burning (from TOC-file). Press Run to start burning.
@@ -113,6 +113,7 @@ __Help commands:__
 
 * cdrdao
 * cd-info -?
+* cd-drive -?
 
 
 __Configuration:__
