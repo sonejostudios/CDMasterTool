@@ -43,14 +43,14 @@ __Requirements:__
 
 * Python3
 * Tkinter
-* GNU/Linux (with cp, script, rpl, cdrdao, libcdio)
+* GNU/Linux (with cp, script, cdrdao, libcdio)
 * Xterm
 * Flacon (https://flacon.github.io/)
 * VLC (https://www.videolan.org/vlc/)
 
 On Ubuntu/Mint:
 ```
-sudo apt-get install python3 python3-tk libcdio-utils rpl xterm cdrdao vlc flacon
+sudo apt-get install python3 python3-tk libcdio-utils xterm cdrdao vlc flacon
 ```
 You may add first Flacon's ppa to your system (see Flacon's homepage).
 
@@ -90,7 +90,7 @@ __Buttons:__
 
 * open toc : Open TOC-file.
 * save toc : Overwrite TOC-file. A backup (.toc.bak) will be triggered before saving.
-* replace path* : Create a command to replace WAV-file path in TOC-file with relative path. Manually replace OLD_PATH in the command with the old WAV file path present in the TOC file. Press Run to start replacing. A backup (.toc.bak) will be triggered before. You can also use the rpl command to replace whatever you want, with the syntax: rpl OLD_WORD NEW_WORD file.toc/.cue/.txt.
+* replace text* : Show the replace text mask instead of the command line. This will replace the text only in the monitor view and not in the files. You need to save the files (TOC/CUE) manually using the "save toc" and "save cue" buttons.
 
 * open cue : Open CUE-file.
 * save cue : Overwrite CUE-file. A backup (.cue.bak) will be triggered before saving.
@@ -98,9 +98,9 @@ __Buttons:__
 * simulate* : Create command with options (driver, device and speed) for CD burning simulation (from TOC-file). Press Run to start the simulation.
 * burn* : Create command with options (driver, device and speed) for CD burning (from TOC-file). Press Run to start burning.
 
-* flacon split : Split and convert tracks with Flacon/CUE-file. (WAV, Flac, Mp3, Ogg, etc...)
-* vlc cue : Open CUE-file with VLC-Player.
-* vlc cd : Open CD with VLC-Player.
+* external split : Split and convert tracks with external split application and the CUE-file. I recommend "Flacon".
+* play cue : Open CUE-file with a music player. I recommend "VLC".
+* play cd : Open CD with with a music player. I recommend "VLC".
 
 * ... : Open WAV file with the file chooser dialog. Copy/paste the WAV file into the WAV-file entry will also do the trick, but much faster. :)
 * Run : Run command.
@@ -124,5 +124,9 @@ WARNING: Make a backup first before changing anything in the config file!
 * You can change the driver list, the device list and the speed list (space separated values). The first item in the list will be choosen by default. Change them only if you are really sure you know what you are doing!
 * You can hide or show specific buttons (0 = hide, 1 = show)
 * You can change the spacer height between button groups (default = 5)
+* You can change the terminal application ("terminal"). Some commands are hiding the terminal, put the right command for this in "termhideoption". Default terminal aplication is "xterm" and its hide option is "-iconic"
+* You can change the music player application ("musicplayer"). Default is "vlc".
+* You can change the external split application ("splitapp"). Default is "flacon".
+
 
 

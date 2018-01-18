@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 from tkinter import *
 from tkinter import ttk
 from tkinter import messagebox
@@ -10,7 +12,7 @@ import os
 import json
 
 
-version = "1.3"
+version = "1.3.2"
 
 
 # read config file
@@ -22,6 +24,16 @@ driver_presets = config["driver"]
 device_presets = config["device"]
 speed_presets = config["speed"]
 spacerheight = config["spacerheight"]
+
+terminal = config["terminal"]
+term_hide_option = config["termhideoption"]
+
+music_player = config["musicplayer"]
+playcd_command = config["playcdcommand"]
+
+split_app = config["splitapp"]
+
+
 
 white = "#ffffff"
 black = "#000000"
@@ -95,6 +107,9 @@ def burn_simulate():
 
     # disable saves
     disable_saves()
+
+    # show command entries
+    show_commandentry()
 
 
 def open_toc():
@@ -177,6 +192,7 @@ def disable_saves():
 
 def eject():
     print("eject")
+    show_commandentry()
     command_entry.delete(0.0, END)
     command_entry.insert(0.0, "eject")
     os.system("eject")
@@ -218,8 +234,9 @@ def unlock():
     run_command("noterm")
 
 
-def flacon():
-    print("split and convert with flacon")
+def splitfile():
+    print("split and convert with " + split_app)
+    show_commandentry()
     command_entry.delete(0.0,END)
     #monitor.delete(0.0, END)
 
@@ -228,61 +245,67 @@ def flacon():
 
     print(cuefile)
 
-    os.system("flacon " + cuefile)
-    command_entry.insert(0.0, "flacon " + cuefile)
+    os.system(split_app + " " + cuefile)
+    command_entry.insert(0.0, split_app + " " + cuefile)
     #run_command("noterm")
 
     # disable saves
     disable_saves()
 
 
-def vlccue():
-    print("play cue with vlc player")
+def playcue():
+    print("play cue with " + music_player)
+    show_commandentry()
     command_entry.delete(0.0,END)
-    #monitor.delete(0.0, END)
 
-    command = "vlc " + wavfile_entry.get() + ".cue"
+    command = music_player + " " + wavfile_entry.get() + ".cue"
 
     os.system(command)
     command_entry.insert(0.0, command)
-    #run_command("noterm")
+
 
     # disable saves
     disable_saves()
 
 
-def vlccd():
-    print("play cd with vlc player")
+def playcd():
+    print("play cd with with " + music_player)
+    show_commandentry()
     command_entry.delete(0.0,END)
-    #monitor.delete(0.0, END)
 
-    os.system("vlc cdda://[device][@[track]]")
-    command_entry.insert(0.0, "vlc cdda://[device][@[track]]")
-    #run_command("noterm")
+    os.system(music_player + " " + playcd_command)
+    command_entry.insert(0.0, music_player + " " + playcd_command)
 
     # disable saves
     disable_saves()
 
 
-
-
-
-
-def replace_path():
-    print("replace path")
-    tocfile = wavfile_entry.get() + ".toc"
-
+def replace_view():
     basename = os.path.basename(wavfile_entry.get())
+    #newstring_entry.insert(0, basename)
 
-    # auto backup
-    os.system("cp " + tocfile + " " + tocfile + ".bak")
+    command_entry.grid_remove()
+    oldstring_entry.grid()
+    newstring_entry.grid()
 
-    # rpl command
-    command = "rpl OLD_PATH " + basename + " " + tocfile
+    runreplace_button.grid()
 
-    command_entry.delete(0.0, END)
-    command_entry.insert(0.0, command)
 
+
+# Command Replace string in monitor
+def on_replace_string(event):
+    replace_string()
+
+def replace_string():
+    print("replace strings")
+
+    oldstring = oldstring_entry.get()
+    newstring = newstring_entry.get()
+
+    mytext = monitor.get(0.0, END)
+    mytext = mytext.replace(oldstring, newstring)
+    monitor.delete(0.0, END)
+    monitor.insert(0.0, mytext)
 
 
 
@@ -300,6 +323,8 @@ def run_command(x):
     print("run : " + command)
 
 
+    #if "cdrdao" or "cd-drive" or "eject" or "cd-info" or split_app or music_player in command:
+
     # create command with text dump
     comtermout = 'script -c "' + command + '" -q stdout.txt'
 
@@ -308,17 +333,31 @@ def run_command(x):
     #os.system(command + " > stdout.txt" )
 
     if x == "term":
-        os.system("xterm -e ' " + comtermout + " ' ")
+        os.system(terminal + " -e ' " + comtermout + " ' ")
     else:
         #os.system(comtermout)
-        os.system("xterm -iconic -e ' " + comtermout + " ' ")
+        os.system(terminal + " " + term_hide_option + " -e ' " + comtermout + " ' ")
 
     # read stoutfile
     read_stdout()
 
+
     # disable saves
     disable_saves()
 
+    # show command entries
+    show_commandentry()
+
+
+
+def show_commandentry():
+    # hide replace entries
+    oldstring_entry.grid_remove()
+    newstring_entry.grid_remove()
+
+    command_entry.grid()
+
+    runreplace_button.grid_remove()
 
 
 
@@ -371,7 +410,7 @@ def noinfo(event):
     info_label.config(text="")
 
 def runinfo(event):
-    info_label.config(text="Run command.")
+    info_label.config(text="Run command (Enter).")
 
 def cddriveinfo(event):
     info_label.config(text="Show info and features about the CD drive.")
@@ -403,8 +442,8 @@ def showtocinfo(event):
 def savetocinfo(event):
     info_label.config(text="Overwrite TOC-file. A backup (.toc.bak) will be triggered before saving.")
 
-def replacepathinfo(event):
-    info_label.config(text="Replace WAV-file path in TOC-file with relative path. Replace OLD_PATH and press Run to start.")
+def replaceinfo(event):
+    info_label.config(text="Replace text (i.e the absolute WAV-file path with relative path in TOC-file).")
 
 def showcueinfo(event):
     info_label.config(text="Open CUE-file.")
@@ -418,17 +457,17 @@ def simulateinfo(event):
 def burninfo(event):
     info_label.config(text="Create command with options for CD burning (from TOC-file). Press Run to start.")
 
-def flaconinfo(event):
-    info_label.config(text="Split and convert tracks with Flacon/CUE-file. (WAV, Flac, Mp3, Ogg, etc...)")
+def splitinfo(event):
+    info_label.config(text="Split and convert tracks with " + split_app + " & CUE-file.")
 
-def vlccueinfo(event):
-    info_label.config(text="Open CUE-file with VLC-Player.")
+def playcueinfo(event):
+    info_label.config(text="Open CUE-file with " + music_player + "-player.")
 
-def vlccdinfo(event):
-    info_label.config(text="Open CD with VLC-Player.")
+def playcdinfo(event):
+    info_label.config(text="Open CD with " + music_player + "-player.")
 
 def wavfileinfo(event):
-    info_label.config(text="Full path to WAV-file. Copy/paste the WAV-file to this entry also does the trick.")
+    info_label.config(text="Full path to WAV-file.")
 
 def filechooserinfo(event):
     info_label.config(text="Open WAV-file with file chooser dialog.")
@@ -445,13 +484,22 @@ def speedlistinfo(event):
 def commandinfo(event):
     info_label.config(text="Write command. Type 'cdrdao' or 'cd-info -?' or 'rpl -h' for help.")
 
+def replacebuttoninfo(event):
+    info_label.config(text="Replace OLD TEXT with NEW TEXT.")
+
+def oldstringinfo(event):
+    info_label.config(text="OLD TEXT (text to be replaced).")
+
+def newstringinfo(event):
+    info_label.config(text="NEW TEXT (replace with this text).")
+
 
 
 
 # --------------GUI------------------
 root = Tk()
 root.title("CDMasterTool " + version)
-root.geometry("704x712+300+30")
+root.geometry("704x718+300+30")
 root.resizable(False, False)
 
 # Entry WAV file
@@ -567,18 +615,6 @@ if config["savetoc"] == 1:
     savetoc_button.bind("<Leave>", noinfo)
     savetoc_button.pack()
 
-# Button path replace
-if config["replacepath"] == 1:
-    opentoc_button = ttk.Button(button_frame, text="replace path*", width=11, state="normal", command= replace_path)
-    opentoc_button.bind("<Enter>", replacepathinfo)
-    opentoc_button.bind("<Leave>", noinfo)
-    opentoc_button.pack()
-
-#Spacer
-spacer_label = Label(button_frame, text="", font=("Helvetica", spacerheight), justify=LEFT)
-spacer_label.pack()
-
-
 # Button open cue
 if config["opencue"] == 1:
     opencue_button = ttk.Button(button_frame, text="open cue", width=11, state="normal", command= open_cue)
@@ -592,6 +628,13 @@ if config["savecue"] == 1:
     savecue_button.bind("<Enter>", savecueinfo)
     savecue_button.bind("<Leave>", noinfo)
     savecue_button.pack()
+
+# Button replace
+if config["replacetext"] == 1:
+    replace_button = ttk.Button(button_frame, text="replace text*", width=11, state="normal", command= replace_view)
+    replace_button.bind("<Enter>", replaceinfo)
+    replace_button.bind("<Leave>", noinfo)
+    replace_button.pack()
 
 #Spacer
 spacer_label = Label(button_frame, text="", font=("Helvetica", spacerheight), justify=LEFT)
@@ -617,26 +660,26 @@ spacer_label = Label(button_frame, text="", font=("Helvetica", spacerheight), ju
 spacer_label.pack()
 
 
-# Button flacon
-if config["flaconsplit"] == 1:
-    flacon_button = ttk.Button(button_frame, text="flacon split", width=11, state="normal", command= flacon)
-    flacon_button.bind("<Enter>", flaconinfo)
-    flacon_button.bind("<Leave>", noinfo)
-    flacon_button.pack()
+# Button external spit
+if config["externalsplit"] == 1:
+    split_button = ttk.Button(button_frame, text="external split", width=11, state="normal", command= splitfile)
+    split_button.bind("<Enter>", splitinfo)
+    split_button.bind("<Leave>", noinfo)
+    split_button.pack()
 
-# Button vlc cue
-if config["vlccue"] == 1:
-    vlccue_button = ttk.Button(button_frame, text="vlc cue", width=11, state="normal", command= vlccue)
-    vlccue_button.bind("<Enter>", vlccueinfo)
-    vlccue_button.bind("<Leave>", noinfo)
-    vlccue_button.pack()
+# Button play cue
+if config["playcue"] == 1:
+    playcue_button = ttk.Button(button_frame, text="play cue", width=11, state="normal", command= playcue)
+    playcue_button.bind("<Enter>", playcueinfo)
+    playcue_button.bind("<Leave>", noinfo)
+    playcue_button.pack()
 
 # Button vlc cd
-if config["vlccd"] == 1:
-    vlccd_button = ttk.Button(button_frame, text="vlc cd", width=11, state="normal", command= vlccd)
-    vlccd_button.bind("<Enter>", vlccdinfo)
-    vlccd_button.bind("<Leave>", noinfo)
-    vlccd_button.pack()
+if config["playcd"] == 1:
+    playcd_button = ttk.Button(button_frame, text="play cd", width=11, state="normal", command= playcd)
+    playcd_button.bind("<Enter>", playcdinfo)
+    playcd_button.bind("<Leave>", noinfo)
+    playcd_button.pack()
 
 
 
@@ -681,19 +724,49 @@ driver_frame.grid(row=1, column=1, pady=5, sticky=W)
 
 # Entry Command
 command_frame = Frame(root)
-command_label = Label(command_frame, text="Command : ", justify=LEFT)
+command_label = Label(command_frame, text="Command :", justify=LEFT)
 command_label.grid(row=0, column=0, sticky=N)
+
+    #run entry
 command_entry = Text(command_frame, width=73, height=4, background=white)
 command_entry.bind("<Button-3>", entry_clear)
 command_entry.bind("<Return>", on_run_command2)
 command_entry.bind("<Enter>", commandinfo)
 command_entry.bind("<Leave>", noinfo)
-command_entry.grid(row=0, column=1, rowspan=2)
+command_entry.grid(row=0, column=1, rowspan=2, pady=3)
+
+    #replace entries
+oldstring_entry = Entry(command_frame, width=64, background=white)
+oldstring_entry.bind("<Button-3>", entry_clear)
+oldstring_entry.bind("<Return>", on_replace_string)
+oldstring_entry.bind("<Enter>", oldstringinfo)
+oldstring_entry.bind("<Leave>", noinfo)
+oldstring_entry.grid(row=0, column=1, pady=3)
+oldstring_entry.grid_remove()
+
+newstring_entry = Entry(command_frame, width=64, background=white)
+newstring_entry.bind("<Button-3>", entry_clear)
+newstring_entry.bind("<Return>", on_replace_string)
+newstring_entry.bind("<Enter>", newstringinfo)
+newstring_entry.bind("<Leave>", noinfo)
+newstring_entry.grid(row=1, column=1, pady=12)
+newstring_entry.grid_remove()
+
+    #buttons
 runcom_button = ttk.Button(command_frame, text="Run", width=7, state="normal", command= on_run_command)
 runcom_button.bind("<Enter>", runinfo)
 runcom_button.bind("<Leave>", noinfo)
-runcom_button.grid(row=1, column=0, padx=5, sticky=N)
+runcom_button.grid(row=1, column=0, padx=5, pady=4, sticky=S)
+
+runreplace_button = ttk.Button(command_frame, text="Replace", width=7, state="normal", command= replace_string)
+runreplace_button.bind("<Enter>", replacebuttoninfo)
+runreplace_button.bind("<Leave>", noinfo)
+runreplace_button.grid(row=1, column=0, padx=5, pady=4, sticky=S)
+runreplace_button.grid_remove()
+
 command_frame.grid(row=2, column=1, pady=5, sticky=W)
+
+
 
 
 #monitor

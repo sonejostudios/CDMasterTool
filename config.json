@@ -1,5 +1,5 @@
 {
-"wavfile": "",
+"wavfile": "/media/sda7/StudioSession3/CD-TEXT/ardour/cdtext/export/cdtext_superdirtvince.wav",
 "driver": "generic-mmc:0x10 generic-mmc generic-mmc-raw cdd2600 plextor plextor-scan ricoh-mp6200 sony-cdu920 sony-cdu948 taiyo-yuden teac-cdr55 toshiba yamaha-cdr10x",
 "device": "/dev/sr0 /dev/sr1",
 "speed": "max 4 8 16 24",
@@ -16,7 +16,7 @@
 
 "opentoc": 1,
 "savetoc": 1,
-"replacepath": 1,
+"replacetext": 1,
 
 "opencue": 1,
 "savecue": 1,
@@ -24,9 +24,23 @@
 "simulate": 1,
 "burn": 1,
 
-"flaconsplit": 1,
-"vlccue": 1,
-"vlccd": 1,
+"externalsplit": 1,
+"playcue": 1,
+"playcd": 1,
 
-"spacerheight": 5
+"spacerheight": 5,
+
+"terminal": "xterm",
+"termhideoption": "-iconic",
+
+"musicplayer": "vlc",
+"playcdcommand":"cdda://[device][@[track]]",
+
+"splitapp": "flacon"
+
 }
+
+
+
+
+
