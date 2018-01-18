@@ -15,7 +15,7 @@ __Main Features:__
 
 * CD analysis (CD info, track info, MCN, ISRC, CD-TEXT, CDDB, Medium, etc...)
 * Open, edit and save TOC and CUE files
-* Replace TOC file path to relative
+* Replace text in TOC and CUE files
 * Burning simulation and burning with CD-TEXT
 * Adjust driver, device and speed before burning
 * Drive(s) analysis
