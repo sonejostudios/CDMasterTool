@@ -499,8 +499,25 @@ def newstringinfo(event):
 # --------------GUI------------------
 root = Tk()
 root.title("CDMasterTool " + version)
-root.geometry("704x718+300+30")
+
+#root.geometry("704x718+300+30")
+window_w = 704 # width for the Tk root
+window_h = 718 # height for the Tk root
+
+# get screen width and height
+window_ws = root.winfo_screenwidth() # width of the screen
+windwo_hs = root.winfo_screenheight() # height of the screen
+
+# calculate x and y coordinates for the Tk root window
+window_x = (window_ws / 2) - (window_w / 2)
+window_y = (windwo_hs / 2) - (window_h / 2)
+
+# set the dimensions of the screen and where it is placed
+root.geometry('%dx%d+%d+%d' % (window_w, window_h, window_x, window_y))
+
 root.resizable(False, False)
+
+
 
 # Entry WAV file
 wavfile_frame = Frame(root)
