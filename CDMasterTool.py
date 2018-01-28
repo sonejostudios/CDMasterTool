@@ -9,10 +9,12 @@ from tkinter import filedialog
 from tkinter.filedialog import askopenfilename
 
 import os
+import subprocess
+from subprocess import Popen
 import json
 
 
-version = "1.3.2"
+version = "1.3.3"
 
 
 # read config file
@@ -32,6 +34,8 @@ music_player = config["musicplayer"]
 playcd_command = config["playcdcommand"]
 
 split_app = config["splitapp"]
+
+file_browser = config["filebrowser"]
 
 
 
@@ -130,8 +134,8 @@ def open_toc():
     # disable save cue
     savecue_button.config(state="disable")
 
-    #enable replace
-    replace_button.config(state="normal")
+    # replace view
+    replace_view()
 
 
 def save_toc():
@@ -149,6 +153,9 @@ def save_toc():
 
     # disable saves
     disable_saves()
+
+    # show command entries
+    show_commandentry()
 
 
 def open_cue():
@@ -169,8 +176,8 @@ def open_cue():
     # disable save toc
     savetoc_button.config(state="disable")
 
-    # enable replace
-    replace_button.config(state="normal")
+    # replace view
+    replace_view()
 
 
 def save_cue():
@@ -189,12 +196,16 @@ def save_cue():
     # disable saves
     disable_saves()
 
+    # show command entries
+    show_commandentry()
+
 
 # disables save toc and save cue and replace
 def disable_saves():
     savetoc_button.config(state="disable")
     savecue_button.config(state="disable")
-    replace_button.config(state="disable")
+
+
 
 
 def eject():
@@ -241,6 +252,20 @@ def unlock():
     run_command("noterm")
 
 
+
+def openfolder():
+    print("open folder")
+
+    dirpath = os.path.dirname(wavfile_entry.get())
+
+    command = file_browser + " " + dirpath
+
+    command_entry.delete(0.0, END)
+    command_entry.insert(0.0, command)
+    #run_command("noterm")
+    subprocess.Popen(command, shell=True)
+
+
 def splitfile():
     print("split and convert with " + split_app)
     show_commandentry()
@@ -252,9 +277,10 @@ def splitfile():
 
     print(cuefile)
 
-    os.system(split_app + " " + cuefile)
-    command_entry.insert(0.0, split_app + " " + cuefile)
-    #run_command("noterm")
+    command = split_app + " " + cuefile
+
+    command_entry.insert(0.0, command)
+    subprocess.Popen(command, shell=True)
 
     # disable saves
     disable_saves()
@@ -267,8 +293,8 @@ def playcue():
 
     command = music_player + " " + wavfile_entry.get() + ".cue"
 
-    os.system(command)
     command_entry.insert(0.0, command)
+    subprocess.Popen(command, shell=True)
 
 
     # disable saves
@@ -280,8 +306,10 @@ def playcd():
     show_commandentry()
     command_entry.delete(0.0,END)
 
-    os.system(music_player + " " + playcd_command)
-    command_entry.insert(0.0, music_player + " " + playcd_command)
+    command = music_player + " " + playcd_command
+
+    command_entry.insert(0.0, command)
+    subprocess.Popen(command, shell=True)
 
     # disable saves
     disable_saves()
@@ -296,6 +324,8 @@ def replace_view():
     newstring_entry.grid()
 
     runreplace_button.grid()
+
+    command_label.config(text="Text :")
 
 
 
@@ -313,6 +343,7 @@ def replace_string():
     mytext = mytext.replace(oldstring, newstring)
     monitor.delete(0.0, END)
     monitor.insert(0.0, mytext)
+
 
 
 
@@ -335,15 +366,17 @@ def run_command(x):
     # create command with text dump
     comtermout = 'script -c "' + command + '" -q stdout.txt'
 
-    # run command and pipe stdout to text file
-    #os.system(command + " | tee stdout.txt")
-    #os.system(command + " > stdout.txt" )
 
     if x == "term":
-        os.system(terminal + " -e ' " + comtermout + " ' ")
+        #os.system(terminal + " -e ' " + comtermout + " ' ")
+        subprocess.Popen(terminal + " -e ' " + comtermout + " ' ", shell=True)
+
     else:
         #os.system(comtermout)
         os.system(terminal + " " + term_hide_option + " -e ' " + comtermout + " ' ")
+        #subprocess.Popen(comtermout, shell=True)
+
+
 
     # read stoutfile
     read_stdout()
@@ -365,6 +398,8 @@ def show_commandentry():
     command_entry.grid()
 
     runreplace_button.grid_remove()
+
+    command_label.config(text="Command :")
 
 
 
@@ -411,7 +446,7 @@ def readme():
     readmefile.close()
 
 
-#---------INFOS-----------
+#---------INFO-----------
 
 def noinfo(event):
     info_label.config(text="")
@@ -444,16 +479,13 @@ def diskinfoinfo(event):
     info_label.config(text="Scan CD and show CD info (medium only).")
 
 def showtocinfo(event):
-    info_label.config(text="Open TOC-file.")
+    info_label.config(text="Edit TOC-file.")
 
 def savetocinfo(event):
     info_label.config(text="Overwrite TOC-file. A backup (.toc.bak) will be triggered before saving.")
 
-def replaceinfo(event):
-    info_label.config(text="Replace text (i.e the absolute WAV-file path with relative path in TOC-file).")
-
 def showcueinfo(event):
-    info_label.config(text="Open CUE-file.")
+    info_label.config(text="Edit CUE-file.")
 
 def savecueinfo(event):
     info_label.config(text="Overwrite CUE-file. A backup (.cue.bak) will be triggered before saving.")
@@ -463,6 +495,9 @@ def simulateinfo(event):
 
 def burninfo(event):
     info_label.config(text="Create command with options for CD burning (from TOC-file). Press Run to start.")
+
+def openfolderinfo(event):
+    info_label.config(text="Open working folder with " + file_browser + ".")
 
 def splitinfo(event):
     info_label.config(text="Split and convert tracks with " + split_app + " & CUE-file.")
@@ -495,10 +530,10 @@ def replacebuttoninfo(event):
     info_label.config(text="Replace OLD TEXT with NEW TEXT.")
 
 def oldstringinfo(event):
-    info_label.config(text="OLD TEXT (text to be replaced).")
+    info_label.config(text="OLD TEXT (text to be replaced). i.e absolute path to WAV-file.")
 
 def newstringinfo(event):
-    info_label.config(text="NEW TEXT (replace with this text).")
+    info_label.config(text="NEW TEXT (replace with this text). i.e relative path to WAV-file.")
 
 
 
@@ -626,8 +661,8 @@ spacer_label.pack()
 
 
 # Button open toc
-if config["opentoc"] == 1:
-    opentoc_button = ttk.Button(button_frame, text="open toc", width=11, state="normal", command= open_toc)
+if config["edittoc"] == 1:
+    opentoc_button = ttk.Button(button_frame, text="edit toc", width=11, state="normal", command= open_toc)
     opentoc_button.bind("<Enter>", showtocinfo)
     opentoc_button.bind("<Leave>", noinfo)
     opentoc_button.pack()
@@ -640,8 +675,8 @@ if config["savetoc"] == 1:
     savetoc_button.pack()
 
 # Button open cue
-if config["opencue"] == 1:
-    opencue_button = ttk.Button(button_frame, text="open cue", width=11, state="normal", command= open_cue)
+if config["editcue"] == 1:
+    opencue_button = ttk.Button(button_frame, text="edit cue", width=11, state="normal", command= open_cue)
     opencue_button.bind("<Enter>", showcueinfo)
     opencue_button.bind("<Leave>", noinfo)
     opencue_button.pack()
@@ -652,13 +687,6 @@ if config["savecue"] == 1:
     savecue_button.bind("<Enter>", savecueinfo)
     savecue_button.bind("<Leave>", noinfo)
     savecue_button.pack()
-
-# Button replace
-if config["replacetext"] == 1:
-    replace_button = ttk.Button(button_frame, text="replace text*", width=11, state="disable", command= replace_view)
-    replace_button.bind("<Enter>", replaceinfo)
-    replace_button.bind("<Leave>", noinfo)
-    replace_button.pack()
 
 #Spacer
 spacer_label = Label(button_frame, text="", font=("Helvetica", spacerheight), justify=LEFT)
@@ -682,6 +710,13 @@ if config["burn"] == 1:
 #Spacer
 spacer_label = Label(button_frame, text="", font=("Helvetica", spacerheight), justify=LEFT)
 spacer_label.pack()
+
+# Button open folder
+if config["openfolder"] == 1:
+    split_button = ttk.Button(button_frame, text="open folder", width=11, state="normal", command= openfolder)
+    split_button.bind("<Enter>", openfolderinfo)
+    split_button.bind("<Leave>", noinfo)
+    split_button.pack()
 
 
 # Button external spit
@@ -748,8 +783,8 @@ driver_frame.grid(row=1, column=1, pady=5, sticky=W)
 
 # Entry Command
 command_frame = Frame(root)
-command_label = Label(command_frame, text="Command :", justify=LEFT)
-command_label.grid(row=0, column=0, sticky=N)
+command_label = Label(command_frame, text="Command :", justify=RIGHT)
+command_label.grid(row=0, column=0, sticky=N+E)
 
     #run entry
 command_entry = Text(command_frame, width=73, height=4, background=white)
@@ -780,12 +815,12 @@ newstring_entry.grid_remove()
 runcom_button = ttk.Button(command_frame, text="Run", width=7, state="normal", command= on_run_command)
 runcom_button.bind("<Enter>", runinfo)
 runcom_button.bind("<Leave>", noinfo)
-runcom_button.grid(row=1, column=0, padx=5, pady=4, sticky=S)
+runcom_button.grid(row=1, column=0, padx=5, pady=4, sticky=S+E)
 
 runreplace_button = ttk.Button(command_frame, text="Replace", width=7, state="normal", command= replace_string)
 runreplace_button.bind("<Enter>", replacebuttoninfo)
 runreplace_button.bind("<Leave>", noinfo)
-runreplace_button.grid(row=1, column=0, padx=5, pady=4, sticky=S)
+runreplace_button.grid(row=1, column=0, padx=5, pady=4, sticky=S+E)
 runreplace_button.grid_remove()
 
 command_frame.grid(row=2, column=1, pady=5, sticky=W)

@@ -14,16 +14,16 @@
 "discid": 1,
 "disk-info": 1,
 
-"opentoc": 1,
+"edittoc": 1,
 "savetoc": 1,
-"replacetext": 1,
 
-"opencue": 1,
+"editcue": 1,
 "savecue": 1,
 
 "simulate": 1,
 "burn": 1,
 
+"openfolder": 1,
 "externalsplit": 1,
 "playcue": 1,
 "playcd": 1,
@@ -36,7 +36,9 @@
 "musicplayer": "vlc",
 "playcdcommand":"cdda://[device][@[track]]",
 
-"splitapp": "flacon"
+"splitapp": "flacon",
+
+"filebrowser": "caja"
 
 }
 
