@@ -1,5 +1,5 @@
 {
-"wavfile": "/media/sda7/StudioSession3/CD-TEXT/ardour/cdtext/export/cdtext_superdirtvince.wav",
+"wavfile": "",
 "driver": "generic-mmc:0x10 generic-mmc generic-mmc-raw cdd2600 plextor plextor-scan ricoh-mp6200 sony-cdu920 sony-cdu948 taiyo-yuden teac-cdr55 toshiba yamaha-cdr10x",
 "device": "/dev/sr0 /dev/sr1",
 "speed": "max 4 8 16 24",
