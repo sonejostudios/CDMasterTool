@@ -2,19 +2,21 @@
 
 from tkinter import *
 from tkinter import ttk
-from tkinter import messagebox
-from tkinter.font import Font
 
-from tkinter import filedialog
 from tkinter.filedialog import askopenfilename
 
 import os
 import subprocess
-from subprocess import Popen
 import json
 
+from threading import Thread
 
-version = "1.3.3"
+
+# todo:
+# - show/export metadata title list
+
+
+version = "1.3.4"
 
 
 # read config file
@@ -356,30 +358,22 @@ def on_run_command2(event):
     run_command("term")
 
 def run_command(x):
-
     command = command_entry.get(0.0, END)
     print("run : " + command)
-
-
-    #if "cdrdao" or "cd-drive" or "eject" or "cd-info" or split_app or music_player in command:
 
     # create command with text dump
     comtermout = 'script -c "' + command + '" -q stdout.txt'
 
-
     if x == "term":
-        #os.system(terminal + " -e ' " + comtermout + " ' ")
-        subprocess.Popen(terminal + " -e ' " + comtermout + " ' ", shell=True)
+        t1 = Thread(target=run_command_thread,name ="RunCommandThread")
+        t1.start()
 
     else:
-        #os.system(comtermout)
+        # run command
         os.system(terminal + " " + term_hide_option + " -e ' " + comtermout + " ' ")
-        #subprocess.Popen(comtermout, shell=True)
 
-
-
-    # read stoutfile
-    read_stdout()
+        # read stdout file
+        read_stdout()
 
 
     # disable saves
@@ -387,6 +381,26 @@ def run_command(x):
 
     # show command entries
     show_commandentry()
+
+
+
+def run_command_thread():
+    monitor.delete(0.0, END)
+    monitor.insert(0.0, "Please wait...")
+
+    command = command_entry.get(0.0, END)
+    print("run : " + command)
+
+    # create command with text dump
+    comtermout = 'script -c "' + command + '" -q stdout.txt'
+
+    #run command
+    os.system(terminal + " -e ' " + comtermout + " ' ")
+
+    # read stdout file
+    read_stdout()
+
+
 
 
 
