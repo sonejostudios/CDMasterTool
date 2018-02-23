@@ -12,11 +12,7 @@ import json
 from threading import Thread
 
 
-# todo:
-# - show/export metadata title list
-
-
-version = "1.3.4"
+version = "1.3.5"
 
 
 # read config file
@@ -460,6 +456,86 @@ def readme():
     readmefile.close()
 
 
+
+# show titles etc
+def show_titles():
+    print("show titles")
+    monitor.delete(0.0,END)
+
+    # get cd titale and artist
+    cuefile = wavfile_entry.get() + ".cue"
+    with open(cuefile, "r") as f:
+
+        cdtitle = ""
+        artist = ""
+        for l in f:
+            if "PERFORMER" in l and artist == "":
+                title2 = l[11:-2]
+                artist = title2
+
+            if "TITLE" in l and cdtitle == "":
+                title = l[7:-2]
+                cdtitle = title
+
+        monitor.insert(END, artist + " - " + cdtitle + "\n")
+
+
+    # read artist + titles from toc
+    tocfile = wavfile_entry.get() + ".toc"
+    titlelist = []
+    with open(tocfile, "r") as f:
+
+        for l in f:
+            if "     TITLE" in l :
+                title = l[12:-2]
+                titlelist.append(title)
+
+        monitor.insert(END, "\n\n")
+        # insert track title with numbers
+        for c, value in enumerate(titlelist, 1):
+            finalnames = str(c) + " " + artist + " - "+ value + "\n"
+            monitor.insert(END, finalnames)
+
+
+    # read titles from toc
+    tocfile = wavfile_entry.get() + ".toc"
+    titlelist = []
+    with open(tocfile, "r") as f:
+
+        for l in f:
+            if "     TITLE" in l :
+                title = l[12:-2]
+                titlelist.append(title)
+
+        monitor.insert(END, "\n\n")
+        # insert track title with numbers
+        for c, value in enumerate(titlelist, 1):
+            finalnames = str(c) + " " + value + "\n"
+            monitor.insert(END, finalnames)
+
+        monitor.insert(END, "\n\n")
+
+
+    # track lengths
+    tocfile = wavfile_entry.get() + ".toc"
+    with open(tocfile, "r") as f:
+
+        for line in f:
+
+            if "FILE" in line:
+                time = line[-9:]
+                finaltime = time[:-4]
+                # print(finaltime)
+                monitor.insert(END, finaltime + "\n")
+
+
+    # show command entry
+    show_commandentry()
+    command_entry.delete(0.0, END)
+
+
+
+
 #---------INFO-----------
 
 def noinfo(event):
@@ -476,7 +552,6 @@ def driveinfoinfo(event):
 
 def scanbusinfo(event):
     info_label.config(text="Scan system for drive(s).")
-
 def unlockinfo(event):
     info_label.config(text="Unlock drive(s) if locked by mistake.")
 
@@ -503,6 +578,9 @@ def showcueinfo(event):
 
 def savecueinfo(event):
     info_label.config(text="Overwrite CUE-file. A backup (.cue.bak) will be triggered before saving.")
+
+def showtitlesinfo(event):
+    info_label.config(text="Show a summary of artist, CD title, CD tracks and track lengths as text.")
 
 def simulateinfo(event):
     info_label.config(text="Create command with options for CD Burning simulation (from TOC-file). Press Run to start.")
@@ -701,6 +779,13 @@ if config["savecue"] == 1:
     savecue_button.bind("<Enter>", savecueinfo)
     savecue_button.bind("<Leave>", noinfo)
     savecue_button.pack()
+
+# Button show titles
+if config["showtitles"] == 1:
+    showtitles_button = ttk.Button(button_frame, text="show titles", width=11, state="normal", command=show_titles)
+    showtitles_button.bind("<Enter>", showtitlesinfo)
+    showtitles_button.bind("<Leave>", noinfo)
+    showtitles_button.pack()
 
 #Spacer
 spacer_label = Label(button_frame, text="", font=("Helvetica", spacerheight), justify=LEFT)

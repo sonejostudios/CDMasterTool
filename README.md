@@ -6,7 +6,7 @@ __Description:__
 
 CDMasterTool is a tool for audio CD creation, TOC and CUE files manipulation, CD burning with CD-TEXT, drive(s) and CD analysis and Commandline launcher. It is mainly based of Cdrdao and libcdio, as well as a couple of other GNU/Linux tools. The main goal is to burn Audio CDs with CD-TEXT, out of a DAW's Red Book export WAV/TOC/CUE combination.
 
-![screenshot](https://github.com/sonejostudios/CDMasterTool/blob/master/CDMasterTool-133.png "CDMasterTool")
+![screenshot](https://github.com/sonejostudios/CDMasterTool/blob/master/CDMasterTool-135.png "CDMasterTool")
 
 CDMasterTool in action: https://youtu.be/A4S1s92GtNU
 
@@ -22,6 +22,7 @@ __Main Features:__
 * Unlock and Eject CD
 * Direct link to external split application to split WAV file according to CUE file and export
 * Direct link to music player: Play CD (with CD-TEXT) and play CUE file
+* Show summary of artist, CD title, CD tracks and track lengths for copy/paste
 * Commandline launcher for Cdrdao, libcdio and more
 * Auto description for buttons and entries
   
@@ -94,6 +95,7 @@ __Buttons:__
 * save toc : Overwrite TOC-file. A backup (.toc.bak) will be triggered before saving.
 * edit cue : Open CUE-file and show the replace text mask instead of the command line.
 * save cue : Overwrite CUE-file. A backup (.cue.bak) will be triggered before saving.
+* show titles : Show a summary of artist, CD title, CD tracks and track lengths as text.
 
 * simulate* : Create command with options (driver, device and speed) for CD burning simulation (from TOC-file). Press Run to start the simulation.
 * burn* : Create command with options (driver, device and speed) for CD burning (from TOC-file). Press Run to start burning.
