@@ -529,7 +529,14 @@ def show_titles():
                 monitor.insert(END, finaltime + "\n")
 
 
-    # show command entry
+    # export to text file
+    titlefile = wavfile_entry.get() + ".txt"
+    with open(titlefile, "w") as file:
+        file.write(monitor.get(0.0,END))
+
+
+
+        # show command entry
     show_commandentry()
     command_entry.delete(0.0, END)
 

@@ -95,7 +95,7 @@ __Buttons:__
 * save toc : Overwrite TOC-file. A backup (.toc.bak) will be triggered before saving.
 * edit cue : Open CUE-file and show the replace text mask instead of the command line.
 * save cue : Overwrite CUE-file. A backup (.cue.bak) will be triggered before saving.
-* show titles : Show a summary of artist, CD title, CD tracks and track lengths as text.
+* show titles : Show a summary of artist, CD title, CD tracks and track lengths as text. This will also save tiles as .txt file in the working folder.
 
 * simulate* : Create command with options (driver, device and speed) for CD burning simulation (from TOC-file). Press Run to start the simulation.
 * burn* : Create command with options (driver, device and speed) for CD burning (from TOC-file). Press Run to start burning.
