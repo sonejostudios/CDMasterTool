@@ -108,6 +108,7 @@ __Buttons:__
 * ... : Open WAV file with the file chooser dialog. Copy/paste the WAV file into the WAV-file entry will also do the trick, but much faster. :)
 * Run : Run command.
 * Replace: Replace OLD TEXT with NEW TEXT in the monitor view (but not in the files). You need to save the files (TOC/CUE) manually using the "save toc" and "save cue" buttons.
+* Open: Open text file.
 
 
 Buttons with * will just create the commands (and don't run them). Press Run to do that.

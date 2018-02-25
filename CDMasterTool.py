@@ -11,8 +11,11 @@ import json
 
 from threading import Thread
 
+from cueparser import *
+import webbrowser
 
-version = "1.3.5"
+
+version = "1.3.6"
 
 
 # read config file
@@ -321,6 +324,7 @@ def replace_view():
     oldstring_entry.grid()
     newstring_entry.grid()
 
+    open_button.grid_remove()
     runreplace_button.grid()
 
     command_label.config(text="Text :")
@@ -408,6 +412,7 @@ def show_commandentry():
     command_entry.grid()
 
     runreplace_button.grid_remove()
+    open_button.grid_remove()
 
     command_label.config(text="Command :")
 
@@ -433,6 +438,8 @@ def entry_clear(event):
         event.widget.focus_set()
 
 
+
+
 # file chooser
 def open_file():
     FILEOPENOPTIONS = dict(defaultextension='.wav',
@@ -456,64 +463,57 @@ def readme():
     readmefile.close()
 
 
-
-# show titles etc
+# show titles
 def show_titles():
     print("show titles")
-    monitor.delete(0.0,END)
+    monitor.delete(0.0, END)
 
-    # get cd titale and artist
     cuefile = wavfile_entry.get() + ".cue"
+
+    #cueparser
+    cuesheet = CueSheet()
+
     with open(cuefile, "r") as f:
-
-        cdtitle = ""
-        artist = ""
-        for l in f:
-            if "PERFORMER" in l and artist == "":
-                title2 = l[11:-2]
-                artist = title2
-
-            if "TITLE" in l and cdtitle == "":
-                title = l[7:-2]
-                cdtitle = title
-
-        monitor.insert(END, artist + " - " + cdtitle + "\n")
+        cuesheet.setData(f.read())
 
 
-    # read artist + titles from toc
-    tocfile = wavfile_entry.get() + ".toc"
-    titlelist = []
-    with open(tocfile, "r") as f:
-
-        for l in f:
-            if "     TITLE" in l :
-                title = l[12:-2]
-                titlelist.append(title)
-
-        monitor.insert(END, "\n\n")
-        # insert track title with numbers
-        for c, value in enumerate(titlelist, 1):
-            finalnames = str(c) + " " + artist + " - "+ value + "\n"
-            monitor.insert(END, finalnames)
+    # header
+    #cuesheet.setOutputFormat("%performer% - %title%\n%file%\n%tracks%", "%performer% - %title%")
+    cuesheet.setOutputFormat("%performer% - %title%")
+    cuesheet.parse()
+    cuelist = cuesheet.output()
+    monitor.insert(END, cuelist + "\n\n\n")
 
 
-    # read titles from toc
-    tocfile = wavfile_entry.get() + ".toc"
-    titlelist = []
-    with open(tocfile, "r") as f:
+    # performer - tracks
+    cuesheet.setOutputFormat("%tracks%", "%performer% - %title%")
+    cuesheet.parse()
+    cuelist = cuesheet.output()
+    cuelistlist = []
 
-        for l in f:
-            if "     TITLE" in l :
-                title = l[12:-2]
-                titlelist.append(title)
+    for row in cuelist.splitlines():
+        cuelistlist.append(row)
 
-        monitor.insert(END, "\n\n")
-        # insert track title with numbers
-        for c, value in enumerate(titlelist, 1):
-            finalnames = str(c) + " " + value + "\n"
-            monitor.insert(END, finalnames)
+    for c, value in enumerate(cuelistlist, 1):
+        monitor.insert(END, str(c) + " " + value + "\n")
 
-        monitor.insert(END, "\n\n")
+    monitor.insert(END, "\n\n")
+
+
+    # tracks only
+    cuesheet.setOutputFormat("%tracks%", "%title%")
+    cuesheet.parse()
+    cuelist = cuesheet.output()
+    cuelistlist = []
+
+    for row in cuelist.splitlines():
+        cuelistlist.append(row)
+
+    for c, value in enumerate(cuelistlist, 1):
+        monitor.insert(END, str(c) + " " + value + "\n")
+
+    monitor.insert(END, "\n\n")
+
 
 
     # track lengths
@@ -529,6 +529,7 @@ def show_titles():
                 monitor.insert(END, finaltime + "\n")
 
 
+
     # export to text file
     titlefile = wavfile_entry.get() + ".txt"
     with open(titlefile, "w") as file:
@@ -536,9 +537,29 @@ def show_titles():
 
 
 
-        # show command entry
-    show_commandentry()
+    #insert textfile path into command
+    monitorfile = wavfile_entry.get() + ".txt"
+
     command_entry.delete(0.0, END)
+    command_entry.insert(0.0, monitorfile)
+
+    # show command entry
+    show_commandentry()
+
+    # show open button and file label
+    command_label.config(text="File :")
+    open_button.grid()
+
+
+
+
+#open with text editor
+def open_text_editor():
+    print("open text editor")
+    monitorfile = wavfile_entry.get() + ".txt"
+
+    webbrowser.open(monitorfile)
+
 
 
 
@@ -550,6 +571,9 @@ def noinfo(event):
 
 def runinfo(event):
     info_label.config(text="Run command (Enter).")
+
+def openinfo(event):
+    info_label.config(text="Open file (Enter).")
 
 def cddriveinfo(event):
     info_label.config(text="Show info and features about the CD drive.")
@@ -587,7 +611,7 @@ def savecueinfo(event):
     info_label.config(text="Overwrite CUE-file. A backup (.cue.bak) will be triggered before saving.")
 
 def showtitlesinfo(event):
-    info_label.config(text="Show a summary of artist, CD title, CD tracks and track lengths as text.")
+    info_label.config(text="Show artist, CD title, CD tracks and track lengths and save result into a text file.")
 
 def simulateinfo(event):
     info_label.config(text="Create command with options for CD Burning simulation (from TOC-file). Press Run to start.")
@@ -929,6 +953,12 @@ runreplace_button.bind("<Leave>", noinfo)
 runreplace_button.grid(row=1, column=0, padx=5, pady=4, sticky=S+E)
 runreplace_button.grid_remove()
 
+open_button = ttk.Button(command_frame, text="Open", width=7, state="normal", command= open_text_editor)
+open_button.bind("<Enter>", openinfo)
+open_button.bind("<Leave>", noinfo)
+open_button.grid(row=1, column=0, padx=5, pady=4, sticky=S+E)
+open_button.grid_remove()
+
 command_frame.grid(row=2, column=1, pady=5, sticky=W)
 
 
@@ -944,7 +974,7 @@ yscrollbar = ttk.Scrollbar(monitorframe)
 yscrollbar.pack(side=RIGHT, fill=Y)
 
 monitor = Text(monitorframe, wrap=NONE, xscrollcommand=xscrollbar.set, yscrollcommand=yscrollbar.set, height=35,padx=5, pady=5)
-monitor.bind("<Button-3>", entry_clear)
+monitor.bind("<Button-3>", open_text_editor)
 monitor.pack(fill=X)
 xscrollbar.config(command=monitor.xview)
 yscrollbar.config(command=monitor.yview)
