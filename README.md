@@ -45,15 +45,22 @@ __Requirements:__
 * Python3
 * Tkinter
 * GNU/Linux (with cp, script, cdrdao, libcdio)
+* Cueparser
 * Xterm
 * Flacon (https://flacon.github.io/)
 * VLC (https://www.videolan.org/vlc/)
 
-On Ubuntu/Mint:
+
+1. You may add first Flacon's ppa to your system (see Flacon's homepage).
+2. On Ubuntu/Mint:
 ```
 sudo apt-get install python3 python3-tk libcdio-utils xterm cdrdao vlc flacon
 ```
-You may add first Flacon's ppa to your system (see Flacon's homepage).
+3. Install CueParser via pip3:
+```
+pip3 install cueparser
+```
+
 
 
 __Notes:__
