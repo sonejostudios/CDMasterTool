@@ -77,7 +77,7 @@ __Tips and Tricks:__
 * Cdrdao needs to have the same metadata in the CD title than in the tracks, otherwise, it will not burn. Be sure it is correct.
 * Replace the absolute WAV-file path in the TOC-file to a relative path (or somewhere else). The CUE file path is already relative. You can also replace anything in a text.
 * If you change a metadata in the TOC file, you need to change it in the CUE file as well.
-* Changes in TOC/CUE will not be saved until you press "save toc" or "save cue". If something went wrong, just press "edit toc"/"edit cue" again.
+* Changes in TOC/CUE will not be saved until you press "save toc" or "save cue". If something went wrong, just press "edit toc"/"edit cue" again before saving.
 * Saving a TOC/CUE file will trigger an automatic backup (".bak") bevore saving. If you have saved by mistake, just have a look at the ".bak" file.
 * TOC files are used for burning (Disk-at-Once, via Cdrdao).
 * CUE files are used to split with external split application and play with music player (default are Flacon and VLC).
