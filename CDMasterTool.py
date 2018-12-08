@@ -5,6 +5,8 @@ from tkinter import ttk
 
 from tkinter.filedialog import askopenfilename
 
+import tkinter.font as font
+
 import os
 import subprocess
 import json
@@ -15,7 +17,7 @@ from cueparser import *
 import webbrowser
 
 
-version = "1.3.6"
+version = "1.3.7"
 
 
 # read config file
@@ -983,6 +985,14 @@ yscrollbar.config(command=monitor.yview)
 # info label
 info_label = Label(root, text="", justify=LEFT)
 info_label.grid(row=4, column=1, columnspan=1, rowspan=1, sticky=W, padx=2, pady=0)
+
+
+
+# set global font size
+font.nametofont('TkDefaultFont').configure(size=9)
+font.nametofont('TkTextFont').configure(size=9)
+font.nametofont('TkMenuFont').configure(size=9)
+font.nametofont('TkFixedFont').configure(size=9)
 
 
 
