@@ -17,7 +17,7 @@ from cueparser import *
 import webbrowser
 
 
-version = "1.3.7"
+version = "1.3.8"
 
 
 # read config file
@@ -44,6 +44,11 @@ file_browser = config["filebrowser"]
 
 white = "#ffffff"
 black = "#000000"
+
+
+textcolor = "black"
+selecttextcolor = "white"
+selectbgcolor = "grey"
 
 
 speed = ""
@@ -691,7 +696,7 @@ wavfile_frame = Frame(root)
 wavfile_label = Label(wavfile_frame, text="WAV-file :", justify=LEFT)
 wavfile_label.grid(row=0, column=0)
 
-wavfile_entry = Entry(wavfile_frame, width=61, background=white)
+wavfile_entry = Entry(wavfile_frame, width=61, background=white, foreground=textcolor, selectforeground=selecttextcolor, selectbackground=selectbgcolor)
 wavfile_entry.bind("<Button-3>", entry_clear)
 wavfile_entry.bind("<Enter>", wavfileinfo)
 wavfile_entry.bind("<Leave>", noinfo)
@@ -919,7 +924,7 @@ command_label = Label(command_frame, text="Command :", justify=RIGHT)
 command_label.grid(row=0, column=0, sticky=N+E)
 
     #run entry
-command_entry = Text(command_frame, width=73, height=4, background=white)
+command_entry = Text(command_frame, width=73, height=4, background=white, foreground=textcolor, selectforeground=selecttextcolor, selectbackground=selectbgcolor)
 command_entry.bind("<Button-3>", entry_clear)
 command_entry.bind("<Return>", on_run_command2)
 command_entry.bind("<Enter>", commandinfo)
@@ -927,7 +932,7 @@ command_entry.bind("<Leave>", noinfo)
 command_entry.grid(row=0, column=1, rowspan=2, pady=3)
 
     #replace entries
-oldstring_entry = Entry(command_frame, width=64, background=white)
+oldstring_entry = Entry(command_frame, width=64, background=white, foreground=textcolor, selectforeground=selecttextcolor, selectbackground=selectbgcolor)
 oldstring_entry.bind("<Button-3>", entry_clear)
 oldstring_entry.bind("<Return>", on_replace_string)
 oldstring_entry.bind("<Enter>", oldstringinfo)
@@ -935,7 +940,7 @@ oldstring_entry.bind("<Leave>", noinfo)
 oldstring_entry.grid(row=0, column=1, pady=3)
 oldstring_entry.grid_remove()
 
-newstring_entry = Entry(command_frame, width=64, background=white)
+newstring_entry = Entry(command_frame, width=64, background=white, foreground=textcolor, selectforeground=selecttextcolor, selectbackground=selectbgcolor)
 newstring_entry.bind("<Button-3>", entry_clear)
 newstring_entry.bind("<Return>", on_replace_string)
 newstring_entry.bind("<Enter>", newstringinfo)
@@ -975,7 +980,7 @@ xscrollbar.pack(side=BOTTOM, fill=X)
 yscrollbar = ttk.Scrollbar(monitorframe)
 yscrollbar.pack(side=RIGHT, fill=Y)
 
-monitor = Text(monitorframe, wrap=NONE, xscrollcommand=xscrollbar.set, yscrollcommand=yscrollbar.set, height=35,padx=5, pady=5)
+monitor = Text(monitorframe, wrap=NONE, xscrollcommand=xscrollbar.set, yscrollcommand=yscrollbar.set, height=35,padx=5, pady=5, foreground=textcolor, selectforeground=selecttextcolor, selectbackground=selectbgcolor)
 monitor.bind("<Button-3>", open_text_editor)
 monitor.pack(fill=X)
 xscrollbar.config(command=monitor.xview)
